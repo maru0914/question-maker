@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Question;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +14,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);
+
+        Question::factory()
+            ->create([
+                'body' => '地球と月はどちらが大きいですか？',
+                'answer' => '地球です。月の直径は地球の約1/4、質量は約1/81です。',
+            ]);
+
+        Question::factory()
+            ->create([
+                'body' => '地球と火星はどちらが大きいですか？',
+                'answer' => '地球です。火星の直径は地球の約1/2、質量は約1/10です。',
+            ]);
     }
 }
