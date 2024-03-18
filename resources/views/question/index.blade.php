@@ -1,6 +1,8 @@
-<x-question-layout>
-    <div class="flex justify-between">
-        <h1 class="font-bold text-2xl mb-2">問題一覧</h1>
+<x-app-layout>
+    <x-slot name="header">
+        問題一覧
+    </x-slot>
+    <div class="flex justify-end mb-6">
         <a class="text-right text-blue-600" href="{{ route('questions.create') }}">
             問題を作成する
         </a>
@@ -36,4 +38,4 @@
 
         @endforeach
     </ul>
-</x-question-layout>
+</x-app-layout>
