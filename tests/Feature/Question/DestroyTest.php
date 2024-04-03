@@ -6,11 +6,17 @@ beforeEach(function () {
     $this->question = Question::factory()->create();
 });
 
-test('削除が成功すると/questionsにリダイレクトする', function () {
-    $response = $this->delete("/questions/{$this->question->id}");
+test('questionを削除できる', function () {
+    $this->delete("/questions/{$this->question->id}");
 
-    expect(Question::find($this->question->id))->toBeNull();
-    $response->assertRedirect('/questions');
+    $this->assertDatabaseMissing('questions', [
+        'id' => $this->question,
+    ]);
+});
+
+test('削除が成功すると/questionsにリダイレクトする', function () {
+    $this->delete("/questions/{$this->question->id}")
+        ->assertRedirect('/questions');
 });
 
 test('存在しないidを指定した場合404を返す', function () {
