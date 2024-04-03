@@ -14,10 +14,10 @@ test('削除が成功すると/questionsにリダイレクトする', function (
 });
 
 test('存在しないidを指定した場合404を返す', function () {
-    $latest_question = Question::orderBy('id', 'desc')->first();
-    $non_existing_id = $latest_question->id + 1;
+    $latestQuestion = Question::orderBy('id', 'desc')->first();
+    $nonExistingId = $latestQuestion->id + 1;
 
-    $response = $this->delete("/questions/{$non_existing_id}");
+    $response = $this->delete("/questions/{$nonExistingId}");
 
     $response->assertNotFound();
 });

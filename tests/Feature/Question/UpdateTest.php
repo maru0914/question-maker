@@ -7,16 +7,16 @@ beforeEach(function () {
 });
 
 test('更新が成功した場合/questionsにリダイレクトする', function () {
-    $request_data = [
+    $requestData = [
         'body' => '１＋１は？',
         'answer' => '田んぼの田',
     ];
 
-    $response = $this->put("/questions/{$this->question->id}", $request_data);
+    $response = $this->put("/questions/{$this->question->id}", $requestData);
 
     $this->question->refresh();
-    expect($this->question->body)->toBe($request_data['body']);
-    expect($this->question->answer)->toBe($request_data['answer']);
+    expect($this->question->body)->toBe($requestData['body']);
+    expect($this->question->answer)->toBe($requestData['answer']);
 
     $response->assertRedirect('/questions');
 });
