@@ -12,7 +12,7 @@ class QuestionController extends Controller
     public function index(): View
     {
         return view('question.index', [
-            'questions' => Question::all(),
+            'questions' => Question::paginate(20),
         ]);
     }
 
