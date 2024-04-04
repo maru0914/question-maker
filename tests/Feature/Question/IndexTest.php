@@ -18,9 +18,10 @@ test('問題が登録されている場合リストが表示される', function
 
     $this->get('/questions')
         ->assertOK()
-        ->assertSee($question->body)
-        ->assertSee('編集')
-        ->assertSee('削除');
+        ->assertViewHas('questions', function ($questions) {
+            return count($questions) === 1;
+        })
+        ->assertSee($question->body);
 });
 
 test('クエリパラメータpageが数値以外の場合1ページ目の内容が表示される', function () {
@@ -40,8 +41,13 @@ describe('ページネーションのテスト', function () {
     }
 
     test('登録されている問題が20件以下の場合ページネーションが表示されない', function () {
+        makeQuestionData(20);
+
         $this->get('/questions')
             ->assertOK()
+            ->assertViewHas('questions', function ($questions) {
+                return count($questions) === 20;
+            })
             ->assertDontSee('/questions?page=');
     });
 
@@ -50,6 +56,9 @@ describe('ページネーションのテスト', function () {
 
         $this->get('/questions')
             ->assertOK()
+            ->assertViewHas('questions', function ($questions) {
+                return count($questions) === 20;
+            })
             ->assertSee('/questions?page=2');
     });
 
