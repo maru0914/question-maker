@@ -42,4 +42,8 @@
         </ul>
     </div>
 
+    <div>
+        {{$questions->links()}}
+    </div>
+
 </x-app-layout>
