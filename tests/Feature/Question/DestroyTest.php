@@ -6,7 +6,7 @@ beforeEach(function () {
     $this->question = Question::factory()->create();
 });
 
-test('questionを削除できる', function () {
+test('問題を削除できる', function () {
     $this->delete("/questions/{$this->question->id}")
         ->assertRedirect('/questions');
 

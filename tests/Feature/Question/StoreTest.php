@@ -13,7 +13,7 @@ test('問題を登録できる', function () {
     $this->assertDatabaseHas('questions', $this->requestData);
 });
 
-test('問題の登録が失敗すると/questions/createにリダイレクトする', function () {
+test('登録が失敗した場合元のページに戻る', function () {
     $this->from('/questions/create')
         ->post('/questions', [])
         ->assertRedirect('/questions/create');

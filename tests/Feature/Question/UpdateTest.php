@@ -6,7 +6,7 @@ beforeEach(function () {
     $this->question = Question::factory()->create();
 });
 
-test('questionを更新できる', function () {
+test('問題を更新できる', function () {
     $requestData = [
         'body' => '１＋１は？',
         'answer' => '田んぼの田',
