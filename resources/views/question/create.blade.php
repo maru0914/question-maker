@@ -1,4 +1,7 @@
-<x-question-layout>
+<x-app-layout>
+    <x-slot name="header">
+        問題作成
+    </x-slot>
     <form method="POST" action="{{ route('questions.store') }}">
         @csrf
 
@@ -10,7 +13,7 @@
         </div>
 
         <div class="mt-4">
-            <x-input-label for="answer" value="回答"/>
+            <x-input-label for="answer" value="答え"/>
             <x-text-area id="answer" class="block mt-1 w-full" name="answer" rows="5" :value="old('answer')"
                          required autofocus/>
             <x-input-error :messages="$errors->get('answer')" class="mt-2"/>
@@ -25,4 +28,4 @@
             </x-primary-button>
         </div>
     </form>
-</x-question-layout>
+</x-app-layout>
