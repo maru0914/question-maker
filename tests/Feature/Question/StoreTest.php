@@ -14,6 +14,7 @@ test('問題を登録できる', function () {
 });
 
 test('問題の登録が失敗すると/questions/createにリダイレクトする', function () {
-    $this->post('/questions', [])
+    $this->from('/questions/create')
+        ->post('/questions', [])
         ->assertRedirect('/questions/create');
-})->todo();
+});

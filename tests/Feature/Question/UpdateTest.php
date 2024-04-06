@@ -22,7 +22,7 @@ test('questionを更新できる', function () {
 });
 
 test('更新が失敗した場合元のページに戻る', function () {
-    $this->put("/questions/{$this->question->id}", [])
-        // 現在は/にリダイレクトしている
-        ->assertRedirect('/');
-})->todo();
+    $this->from("/questions/{$this->question->id}/edit")
+        ->put("/questions/{$this->question->id}", [])
+        ->assertRedirect("/questions/{$this->question->id}/edit");
+});
