@@ -21,16 +21,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        Question::factory()
-            ->create([
-                'body' => '地球と月はどちらが大きいですか？',
-                'answer' => '地球です。月の直径は地球の約1/4、質量は約1/81です。',
+        for ($i = 1; $i <= 21; $i++) {
+            Question::factory()->create([
+                'body' => '地球と月はどちらが大きいですか？'.$i,
+                'answer' => '地球です。月の直径は地球の約1/4、質量は約1/81です。'.$i,
             ]);
-
-        Question::factory()
-            ->create([
-                'body' => '地球と火星はどちらが大きいですか？',
-                'answer' => '地球です。火星の直径は地球の約1/2、質量は約1/10です。',
-            ]);
+        }
     }
 }
