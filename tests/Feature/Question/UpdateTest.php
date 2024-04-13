@@ -1,9 +1,11 @@
 <?php
 
 use App\Models\Question;
+use App\Models\User;
 
 beforeEach(function () {
     $this->question = Question::factory()->create();
+    $this->user = User::factory()->create();
 });
 
 test('問題を更新できる', function () {
@@ -12,7 +14,8 @@ test('問題を更新できる', function () {
         'answer' => '田んぼの田',
     ];
 
-    $this->put("/questions/{$this->question->id}", $requestData)
+    $this->actingAs($this->user)
+        ->put("/questions/{$this->question->id}", $requestData)
         ->assertRedirect('/questions');
     $this->assertDatabaseHas('questions', [
         'id' => $this->question->id,
@@ -22,7 +25,8 @@ test('問題を更新できる', function () {
 });
 
 test('更新が失敗した場合元のページに戻る', function () {
-    $this->from("/questions/{$this->question->id}/edit")
+    $this->actingAs($this->user)
+        ->from("/questions/{$this->question->id}/edit")
         ->put("/questions/{$this->question->id}", [])
         ->assertRedirect("/questions/{$this->question->id}/edit");
 });

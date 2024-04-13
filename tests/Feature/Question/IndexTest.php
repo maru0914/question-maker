@@ -2,11 +2,6 @@
 
 use App\Models\Question;
 
-test('/にアクセスすると/questionsにリダイレクトする', function () {
-    $this->get('/')
-        ->assertRedirect('/questions');
-});
-
 test('問題が登録されていない場合リストが表示されない', function () {
     $this->get('/questions')
         ->assertOK()

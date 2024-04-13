@@ -1,28 +1,32 @@
 <x-app-layout>
     <x-slot name="header">
-        一問一答
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            一問一答
+        </h2>
     </x-slot>
-    <div class="flex justify-end mb-6">
-        <a class="text-blue-600" href="{{ route('questions.create') }}">
-            新規作成
-        </a>
-        /
-        <a class="text-gray-600" href="{{route('questions.edit', ['question' => $question->id])}}">
-            編集
-        </a>
-        /
-        <form class="text-red-500"
-              method="POST"
-              action="{{ route('questions.destroy', ['question' => $question->id]) }}"
-        >
-            @csrf
-            @method('delete')
+    @auth
+        <div class="flex justify-end mb-6">
+            <a class="text-blue-600" href="{{ route('questions.create') }}">
+                新規作成
+            </a>
+            /
+            <a class="text-gray-600" href="{{route('questions.edit', ['question' => $question->id])}}">
+                編集
+            </a>
+            /
+            <form class="text-red-500"
+                  method="POST"
+                  action="{{ route('questions.destroy', ['question' => $question->id]) }}"
+            >
+                @csrf
+                @method('delete')
 
-            <button type="submit" onclick="return confirm('本当に削除しますか？')">
-                削除
-            </button>
-        </form>
-    </div>
+                <button type="submit" onclick="return confirm('本当に削除しますか？')">
+                    削除
+                </button>
+            </form>
+        </div>
+    @endauth
     <div class="space-y-5 mb-5">
         <div>
             <h2 class="font-bold text-xl ">問題文</h2>
