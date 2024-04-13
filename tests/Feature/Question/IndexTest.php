@@ -32,16 +32,18 @@ test('クエリパラメータpageが数値以外の場合1ページ目の内容
         ->assertSee($question->body);
 });
 
-describe('ページネーションのテスト', function () {
-    function makeQuestionData(int $cnt)
-    {
-        for ($i = 0; $i < $cnt; $i++) {
-            Question::factory()->create();
-        }
-    }
+test('作成の新しい順に問題が表示される', function () {
+    $question1 = Question::factory()->create();
+    $question2 = Question::factory()->create();
 
+    $this->get('/questions')
+        ->assertOK()
+        ->assertSeeInOrder([$question2->body, $question1->body]);
+});
+
+describe('ページネーションのテスト', function () {
     test('登録されている問題が20件以下の場合ページネーションが表示されない', function () {
-        makeQuestionData(20);
+        Question::factory()->count(20)->create();
 
         $this->get('/questions')
             ->assertOK()
@@ -52,7 +54,7 @@ describe('ページネーションのテスト', function () {
     });
 
     test('登録されている問題が21件以上の場合ページネーションが表示される', function () {
-        makeQuestionData(21);
+        Question::factory()->count(21)->create();
 
         $this->get('/questions')
             ->assertOK()
@@ -63,7 +65,7 @@ describe('ページネーションのテスト', function () {
     });
 
     test('2ページ目以降にいる場合前のページへのリンクが表示される', function () {
-        makeQuestionData(21);
+        Question::factory()->count(21)->create();
 
         $this->get('/questions?page=2')
             ->assertOK()
