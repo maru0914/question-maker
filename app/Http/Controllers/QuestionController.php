@@ -17,7 +17,7 @@ class QuestionController extends Controller
     public function index(): View
     {
         return view('question.index', [
-            'questions' => Question::paginate(20),
+            'questions' => Question::latest('id')->paginate(20),
         ]);
     }
 
@@ -40,6 +40,8 @@ class QuestionController extends Controller
     {
         return view('question.show', [
             'question' => $question,
+            'previous' => Question::after($question)->oldest('id')->first(),
+            'next' => Question::before($question)->latest('id')->first(),
         ]);
     }
 
