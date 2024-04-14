@@ -1,6 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-        問題作成
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            問題作成
+        </h2>
     </x-slot>
     <form method="POST" action="{{ route('questions.store') }}">
         @csrf

@@ -1,28 +1,32 @@
 <x-app-layout>
     <x-slot name="header">
-        一問一答
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            一問一答
+        </h2>
     </x-slot>
-    <div class="flex justify-end mb-6">
-        <a class="text-blue-600" href="{{ route('questions.create') }}">
-            新規作成
-        </a>
-        /
-        <a class="text-gray-600" href="{{route('questions.edit', ['question' => $question->id])}}">
-            編集
-        </a>
-        /
-        <form class="text-red-500"
-              method="POST"
-              action="{{ route('questions.destroy', ['question' => $question->id]) }}"
-        >
-            @csrf
-            @method('delete')
+    @auth
+        <div class="flex justify-end mb-6">
+            <a class="text-blue-600" href="{{ route('questions.create') }}">
+                新規作成
+            </a>
+            /
+            <a class="text-gray-600" href="{{route('questions.edit', ['question' => $question->id])}}">
+                編集
+            </a>
+            /
+            <form class="text-red-500"
+                  method="POST"
+                  action="{{ route('questions.destroy', ['question' => $question->id]) }}"
+            >
+                @csrf
+                @method('delete')
 
-            <button type="submit" onclick="return confirm('本当に削除しますか？')">
-                削除
-            </button>
-        </form>
-    </div>
+                <button type="submit" onclick="return confirm('本当に削除しますか？')">
+                    削除
+                </button>
+            </form>
+        </div>
+    @endauth
     <div class="space-y-5 mb-5">
         <div>
             <h2 class="font-bold text-xl ">問題文</h2>
@@ -69,7 +73,7 @@
                         前へ
                     </a>
                 @else
-                    <span aria-disabled="true" aria-label="{{ __('pagination.previous') }}">
+                    <span id="previous" aria-disabled="true" aria-label="{{ __('pagination.previous') }}">
                         <span
                             class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default rounded-l-md leading-5 dark:bg-gray-800 dark:border-gray-600"
                             aria-hidden="true">
@@ -86,7 +90,7 @@
                         次へ
                     </a>
                 @else
-                    <span aria-disabled="true" aria-label="{{ __('pagination.next') }}">
+                    <span id="next" aria-disabled="true" aria-label="{{ __('pagination.next') }}">
                         <span
                             class="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default rounded-r-md leading-5 dark:bg-gray-800 dark:border-gray-600"
                             aria-hidden="true">

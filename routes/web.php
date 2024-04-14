@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', '/questions');
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::resource('questions', QuestionController::class);
 

@@ -34,7 +34,7 @@ describe('「前へ」「次へ」リンクのテスト', function () {
         $this->get("/questions/{$this->question->id}")
             ->assertOk()
             ->assertSee('前へ')
-            ->assertSee('<span aria-disabled="true" aria-label="pagination.previous">', false);
+            ->assertSee('<span id="previous" aria-disabled="true"', false);
     });
 
     test('表示中の問題より古い問題がある時、「次へ」リンクが有効になる', function () {
@@ -48,7 +48,7 @@ describe('「前へ」「次へ」リンクのテスト', function () {
     test('表示中の問題より古い問題がない時、「次へ」リンクが無効になる', function () {
         $this->get("/questions/{$this->question->id}")
             ->assertOk()
-            ->assertSee('次')
-            ->assertSee('<span aria-disabled="true" aria-label="pagination.next">', false);
+            ->assertSee('次へ')
+            ->assertSee('<span id="next" aria-disabled="true"', false);
     });
 });
