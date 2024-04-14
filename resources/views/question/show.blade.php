@@ -73,7 +73,7 @@
                         前へ
                     </a>
                 @else
-                    <span aria-disabled="true" aria-label="{{ __('pagination.previous') }}">
+                    <span id="previous" aria-disabled="true" aria-label="{{ __('pagination.previous') }}">
                         <span
                             class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default rounded-l-md leading-5 dark:bg-gray-800 dark:border-gray-600"
                             aria-hidden="true">
@@ -90,7 +90,7 @@
                         次へ
                     </a>
                 @else
-                    <span aria-disabled="true" aria-label="{{ __('pagination.next') }}">
+                    <span id="next" aria-disabled="true" aria-label="{{ __('pagination.next') }}">
                         <span
                             class="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default rounded-r-md leading-5 dark:bg-gray-800 dark:border-gray-600"
                             aria-hidden="true">
