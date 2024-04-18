@@ -1,3 +1,5 @@
+![ci](https://github.com/maru0914/question-maker/actions/workflows/laravel.yml/badge.svg)
+
 ## 環境構築
 
 - Laravel Herdをインストール
