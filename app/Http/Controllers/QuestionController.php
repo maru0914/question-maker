@@ -28,10 +28,12 @@ class QuestionController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        Question::create($request->validate([
+        $data = $request->validate([
             'body' => 'required',
             'answer' => 'required',
-        ]));
+        ]);
+
+        Question::create([...$data, 'user_id' => auth()->id()]);
 
         return redirect()->route('questions.index');
     }
