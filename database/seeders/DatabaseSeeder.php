@@ -16,10 +16,29 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(10)->create();
 
-        User::factory()->create([
+        $testUser = User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        Question::factory()
+            ->for($testUser)
+            ->count(3)
+            ->sequence(
+                [
+                    'body' => 'PHPがリリースされた年は？',
+                    'answer' => '1995年です。',
+                ],
+                [
+                    'body' => 'Laravelがリリースされた年は？',
+                    'answer' => '2011年です。',
+                ],
+                [
+                    'body' => 'Symphonyがリリースされた年は？',
+                    'answer' => '2005年です。',
+                ],
+            )
+            ->create();
 
         for ($i = 1; $i <= 21; $i++) {
             Question::factory()->create([
