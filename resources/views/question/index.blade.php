@@ -16,13 +16,13 @@
         <ul role="list" class="divide-y divide-gray-100">
             @foreach($questions as $question)
                 <li class="flex justify-between items-center gap-x-6 py-5">
-                        <div class="min-w-0 flex-auto text-blue-600">
-                            <a href="{{ route('questions.show', ['question' => $question->id]) }}">
-                                {{ $question->body }}
-                            </a>
-                        </div>
-                    @auth
-                        <div class="shrink-0 flex flex-col items-end">
+                    <div class="min-w-0 flex-auto text-blue-600">
+                        <a href="{{ route('questions.show', ['question' => $question->id]) }}">
+                            {{ $question->body }}
+                        </a>
+                    </div>
+                    <div class="shrink-0 flex flex-col items-end">
+                        @auth
                             <div class="flex w-full justify-end gap-2">
                                 <p class="text-sm leading-6 text-gray-600">
                                     <a href="{{route('questions.edit', ['question' => $question->id])}}">
@@ -41,11 +41,11 @@
                                     </button>
                                 </form>
                             </div>
-                            <div>
-                                by {{ $question->user->username }}
-                            </div>
+                        @endauth
+                        <div>
+                            by {{ $question->user->username }}
                         </div>
-                    @endauth
+                    </div>
                 </li>
             @endforeach
         </ul>
