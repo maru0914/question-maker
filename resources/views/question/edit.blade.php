@@ -6,7 +6,7 @@
     </x-slot>
     <form method="POST" action="{{ route('questions.update', ['question' => $question->id]) }}">
         @csrf
-        @method('put')
+        @method('patch')
 
         <div>
             <x-input-label for="body" value="問題文"/>
