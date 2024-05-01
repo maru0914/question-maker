@@ -23,23 +23,27 @@
                     </div>
                     <div class="shrink-0 flex flex-col items-end">
                         @auth
-                            <div class="flex w-full justify-end gap-2">
-                                <p class="text-sm leading-6 text-gray-600">
-                                    <a href="{{route('questions.edit', ['question' => $question->id])}}">
-                                        編集
-                                    </a>
-                                </p>
-                                <form class="text-sm leading-6 text-red-500"
-                                      method="POST"
-                                      action="{{ route('questions.destroy', ['question' => $question->id]) }}"
-                                >
-                                    @csrf
-                                    @method('delete')
+                            <div class="flex w-full justify-end">
+                                @can('update', $question)
+                                    <p class="text-sm leading-6 text-gray-600 mr-1">
+                                        <a href="{{route('questions.edit', ['question' => $question->id])}}">
+                                            編集
+                                        </a>
+                                    </p>
+                                @endcan
+                                @can('delete', $question)
+                                    <form class="text-sm leading-6 text-red-500"
+                                          method="POST"
+                                          action="{{ route('questions.destroy', ['question' => $question->id]) }}"
+                                    >
+                                        @csrf
+                                        @method('delete')
 
-                                    <button type="submit" onclick="return confirm('本当に削除しますか？')">
-                                        削除
-                                    </button>
-                                </form>
+                                        <button type="submit" onclick="return confirm('本当に削除しますか？')">
+                                            削除
+                                        </button>
+                                    </form>
+                                @endcan
                             </div>
                         @endauth
                         <div>

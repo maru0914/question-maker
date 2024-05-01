@@ -4,8 +4,8 @@ use App\Models\Question;
 use App\Models\User;
 
 beforeEach(function () {
-    $this->question = Question::factory()->create();
     $this->user = User::factory()->create();
+    $this->question = Question::factory()->for($this->user)->create();
 });
 
 test('保存されている内容を閲覧できる', function () {
@@ -14,6 +14,14 @@ test('保存されている内容を閲覧できる', function () {
         ->assertOk()
         ->assertSee($this->question->body)
         ->assertSee($this->question->answer);
+});
+
+test('他ユーザーが作成した問題の編集画面はアクセスできない', function () {
+    $questionByOtherUser = Question::factory()->create();
+
+    $this->actingAs($this->user)
+        ->get("/questions/{$questionByOtherUser->id}/edit")
+        ->assertForbidden();
 });
 
 test('idが存在しない場合、404を返す', function () {
@@ -29,4 +37,3 @@ test('ログインしていない場合ログインページにリダイレク�
     $this->get("/questions/{$this->question->id}/edit")
         ->assertRedirect('/login');
 });
-

@@ -19,7 +19,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('questions', QuestionController::class);
+Route::get('/questions', [QuestionController::class, 'index'])->name('questions.index');
+Route::get('/questions/create', [QuestionController::class, 'create'])->name('questions.create')->middleware('auth');
+Route::post('/questions', [QuestionController::class, 'store'])->name('questions.store')->middleware('auth');
+Route::get('/questions/{question}', [QuestionController::class, 'show'])->name('questions.show');
+Route::get('/questions/{question}/edit', [QuestionController::class, 'edit'])->name('questions.edit')
+    ->middleware('auth')
+    ->can('update', 'question');
+Route::patch('/questions/{question}', [QuestionController::class, 'update'])->name('questions.update')
+    ->middleware('auth')
+    ->can('update', 'question');
+Route::delete('/questions/{question}', [QuestionController::class, 'destroy'])->name('questions.destroy')
+    ->middleware('auth')
+    ->can('delete', 'question');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
