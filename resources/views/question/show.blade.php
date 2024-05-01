@@ -9,22 +9,26 @@
             <a class="text-blue-600" href="{{ route('questions.create') }}">
                 新規作成
             </a>
-            /
-            <a class="text-gray-600" href="{{route('questions.edit', ['question' => $question->id])}}">
-                編集
-            </a>
-            /
-            <form class="text-red-500"
-                  method="POST"
-                  action="{{ route('questions.destroy', ['question' => $question->id]) }}"
-            >
-                @csrf
-                @method('delete')
+            @can('update', $question)
+                /
+                <a class="text-gray-600" href="{{ route('questions.edit', ['question' => $question->id]) }}">
+                    編集
+                </a>
+            @endcan
+            @can('delete', $question)
+                /
+                <form class="text-red-500"
+                      method="POST"
+                      action="{{ route('questions.destroy', ['question' => $question->id]) }}"
+                >
+                    @csrf
+                    @method('delete')
 
-                <button type="submit" onclick="return confirm('本当に削除しますか？')">
-                    削除
-                </button>
-            </form>
+                    <button type="submit" onclick="return confirm('本当に削除しますか？')">
+                        削除
+                    </button>
+                </form>
+            @endcan
         </div>
     @endauth
     <div class="space-y-5 mb-5">
