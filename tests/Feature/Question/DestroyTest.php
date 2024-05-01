@@ -4,8 +4,8 @@ use App\Models\Question;
 use App\Models\User;
 
 beforeEach(function () {
-    $this->question = Question::factory()->create();
     $this->user = User::factory()->create();
+    $this->question = Question::factory()->for($this->user)->create();
 });
 
 test('問題を削除できる', function () {
@@ -14,7 +14,19 @@ test('問題を削除できる', function () {
         ->assertRedirect('/questions');
 
     $this->assertDatabaseMissing('questions', [
-        'id' => $this->question,
+        'id' => $this->question->id,
+    ]);
+});
+
+test('他ユーザーが作成した問題は削除できない', function () {
+    $questionByOtherUser = Question::factory()->create();
+
+    $this->actingAs($this->user)
+        ->delete("/questions/{$questionByOtherUser->id}")
+        ->assertForbidden();
+
+    $this->assertDatabaseHas('questions', [
+        'id' => $questionByOtherUser->id,
     ]);
 });
 
