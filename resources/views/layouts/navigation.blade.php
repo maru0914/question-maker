@@ -17,6 +17,9 @@
                             {{ __('Dashboard') }}
                         </x-nav-link>
                     @endauth
+                    <x-nav-link :href="route('books.index')" :active="request()->routeIs('books.index')">
+                        {{ __('Books') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('questions.index')" :active="request()->routeIs('questions.index')">
                         {{ __('Questions') }}
                     </x-nav-link>
