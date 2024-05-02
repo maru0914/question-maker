@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -31,12 +32,10 @@ class BookFactory extends Factory
      */
     public function withImage(): static
     {
-        if (! Storage::disk('public')->exists('images')) {
-            Storage::disk('public')->makeDirectory('images');
-        }
+        $filePath = Storage::disk('public')->putFile('images', UploadedFile::fake()->image('photo1.jpg', 100, 100));
 
         return $this->state(fn (array $attributes) => [
-            'image_path' => 'images/'.fake()->image(storage_path('app/public/images'), 640, 480, null, false),
+            'image_path' => $filePath,
         ]);
     }
 

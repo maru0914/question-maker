@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
         }
 
         for ($i = 1; $i <= 21; $i++) {
-            Book::factory()->recycle($users)->create([
+            Book::factory()->withImage()->recycle($users)->create([
                 'title' => '問題集'.$i,
             ]);
         }
