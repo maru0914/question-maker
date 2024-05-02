@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +19,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/books', [BookController::class, 'index'])->name('books.index');
+Route::get('/books/create', [BookController::class, 'create'])->name('books.create')->middleware('auth');
+Route::post('/books', [BookController::class, 'store'])->name('books.store')->middleware('auth');
+Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
+Route::get('/books/{book}/edit', [BookController::class, 'edit'])->name('books.edit')
+    ->middleware('auth')
+    ->can('update', 'book');
+Route::patch('/books/{book}', [BookController::class, 'update'])->name('books.update')
+    ->middleware('auth')
+    ->can('update', 'book');
+Route::delete('/books/{book}', [BookController::class, 'destroy'])->name('books.destroy')
+    ->middleware('auth')
+    ->can('delete', 'book');
 
 Route::get('/questions', [QuestionController::class, 'index'])->name('questions.index');
 Route::get('/questions/create', [QuestionController::class, 'create'])->name('questions.create')->middleware('auth');
