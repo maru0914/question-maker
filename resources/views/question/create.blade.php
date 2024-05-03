@@ -9,15 +9,17 @@
 
         <div>
             <x-input-label for="body" value="問題文"/>
-            <x-text-area id="body" class="block mt-1 w-full" name="body" :value="old('body')"
-                         required autofocus/>
+            <x-text-area id="body" class="block mt-1 w-full" name="body" required autofocus>
+                {{ old('body') }}
+            </x-text-area>
             <x-input-error :messages="$errors->get('body')" class="mt-2"/>
         </div>
 
         <div class="mt-4">
             <x-input-label for="answer" value="答え"/>
-            <x-text-area id="answer" class="block mt-1 w-full" name="answer" rows="5" :value="old('answer')"
-                         required autofocus/>
+            <x-text-area id="answer" class="block mt-1 w-full" name="answer" rows="5" required autofocus>
+                {{ old('answer') }}
+            </x-text-area>
             <x-input-error :messages="$errors->get('answer')" class="mt-2"/>
         </div>
 
