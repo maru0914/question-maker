@@ -22,9 +22,7 @@
         </div>
         <div class="mt-4">
             <x-input-label for="description" value="説明文"/>
-            <x-text-area id="description" class="block mt-1 w-full" name="description" rows="5"
-                         :value="old('description')"
-                         required autofocus>
+            <x-text-area id="description" class="block mt-1 w-full" name="description" rows="5" required autofocus>
                 {{ old('description') ?? $book->description }}
             </x-text-area>
             <x-input-error :messages="$errors->get('description')" class="mt-2"/>
