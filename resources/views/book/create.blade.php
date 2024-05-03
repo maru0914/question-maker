@@ -15,7 +15,7 @@
             </div>
             <div class="flex flex-col justify-center">
                 <x-input-label for="image" value="画像"/>
-                <x-input-file name="image" alt="books" />
+                <x-input-file name="image" alt="books"/>
                 <x-input-error :messages="$errors->get('image')" class="mt-2"/>
             </div>
         </div>
