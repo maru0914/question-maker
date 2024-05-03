@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="sm:col-span-2">
-            <h1 class="text-lg font-medium">{{ $book->description }}</h1>
+            <h1 class="text-lg font-medium">{!! nl2br(e($book->description)) !!}</h1>
         </div>
     </div>
 
