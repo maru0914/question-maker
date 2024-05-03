@@ -12,27 +12,27 @@
         </div>
     @endauth
 
-    <div class="bg-white shadow rounded-lg px-6">
+    <div class="bg-white shadow rounded-lg px-5 sm:px-6">
         <ul role="list" class="divide-y divide-gray-100">
             @foreach($questions as $question)
-                <li class="flex justify-between items-center gap-x-6 py-5">
-                    <div class="min-w-0 flex-auto text-blue-600">
-                        <a href="{{ route('questions.show', ['question' => $question->id]) }}">
-                            {{ $question->body }}
-                        </a>
-                    </div>
-                    <div class="shrink-0 flex flex-col items-end">
+                <li>
+                    <div class="flex justify-between items-center">
+                        <div class="text-blue-600 pt-4">
+                            <a href="{{ route('questions.show', ['question' => $question->id]) }}">
+                                {{ $question->body }}
+                            </a>
+                        </div>
                         @auth
-                            <div class="flex w-full justify-end">
+                            <div class="flex justify-end self-start py-2 text-sm leading-6 gap-1">
                                 @can('update', $question)
-                                    <p class="text-sm leading-6 text-gray-600 mr-1">
+                                    <p class="text-gray-600">
                                         <a href="{{route('questions.edit', ['question' => $question->id])}}">
                                             編集
                                         </a>
                                     </p>
                                 @endcan
                                 @can('delete', $question)
-                                    <form class="text-sm leading-6 text-red-500"
+                                    <form class="text-red-500"
                                           method="POST"
                                           action="{{ route('questions.destroy', ['question' => $question->id]) }}"
                                     >
@@ -46,16 +46,16 @@
                                 @endcan
                             </div>
                         @endauth
-                        <div>
-                            by {{ $question->user->username }}
-                        </div>
+                    </div>
+                    <div class="text-black/50 text-xs text-end">
+                        by {{ $question->user->username }}
                     </div>
                 </li>
             @endforeach
         </ul>
     </div>
 
-    <div>
+    <div class="mt-5">
         {{$questions->links()}}
     </div>
 
