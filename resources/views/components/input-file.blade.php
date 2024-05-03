@@ -27,11 +27,10 @@
 </script>
 <div x-data="imageViewer('{{ $src }}')">
     <template x-if="imageUrl">
-        <img :src="imageUrl"
-             class="object-cover rounded border border-gray-200"
-             style="width: 100px; height: 100px;"
-             alt="{{ $alt }}"
-        >
+            <img :src="imageUrl"
+                 class="object-cover rounded border border-gray-200 max-h-48"
+                 alt="{{ $alt }}"
+            >
     </template>
     <template x-if="!imageUrl">
         <div

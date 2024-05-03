@@ -97,6 +97,9 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('books.index')" :active="request()->routeIs('books.index')">
+                {{ __('Books') }}
+            </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('questions.index')" :active="request()->routeIs('questions.index')">
                 {{ __('Questions') }}
             </x-responsive-nav-link>

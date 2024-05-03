@@ -63,7 +63,7 @@
         </div>
     </div>
 
-    <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+    <div class="flex items-center justify-between">
         <div class="mt-3">
             <a class="text-blue-600" href="{{route('questions.index')}}">問題一覧に戻る</a>
         </div>
