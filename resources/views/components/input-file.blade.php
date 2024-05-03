@@ -8,20 +8,19 @@
     function imageViewer(src = '') {
         return {
             imageUrl: src,
+            initialImageUrl: src,
 
             fileChosen(event) {
-                this.fileToDataUrl(event, src => this.imageUrl = src)
-            },
-
-            fileToDataUrl(event, callback) {
-                if (!event.target.files.length) return
+                if (!event.target.files.length) {
+                    this.initialImageUrl ? this.imageUrl = this.initialImageUrl : this.imageUrl = ''
+                }
 
                 let file = event.target.files[0],
                     reader = new FileReader()
 
                 reader.readAsDataURL(file)
-                reader.onload = e => callback(e.target.result)
-            },
+                reader.onload = e => this.imageUrl = e.target.result
+            }
         }
     }
 </script>
