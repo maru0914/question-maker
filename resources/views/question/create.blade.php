@@ -6,8 +6,24 @@
     </x-slot>
     <form method="POST" action="{{ route('questions.store') }}">
         @csrf
-
         <div>
+            <x-input-label for="book" value="問題集"/>
+            <div class="mt-2">
+                <select id="book"
+                        name="book_id"
+                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                >
+                    @foreach($books as $book)
+                        <option value="{{ $book->id }}">
+                            {{ $book->title }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <x-input-error :messages="$errors->get('book_id')" class="mt-2"/>
+        </div>
+
+        <div class="mt-4">
             <x-input-label for="body" value="問題文"/>
             <x-text-area id="body" class="block mt-1 w-full" name="body" required autofocus>
                 {{ old('body') }}
