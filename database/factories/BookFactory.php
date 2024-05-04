@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Http\File;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -28,11 +29,12 @@ class BookFactory extends Factory
     }
 
     /**
-     * 画像未登録
+     * 画像登録あり
      */
     public function withImage(): static
     {
-        $filePath = Storage::disk('public')->putFile('images', UploadedFile::fake()->image('photo1.jpg', 100, 100));
+        $stubFile = new File(Storage::disk('local')->path('stub/laravel-logo.png'));
+        $filePath = Storage::disk('public')->putFile('images', $stubFile);
 
         return $this->state(fn (array $attributes) => [
             'image_path' => $filePath,
