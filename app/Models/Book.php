@@ -25,6 +25,6 @@ class Book extends Model
 
     public function questions(): HasMany
     {
-        return $this->hasMany(Question::class, 'book_id');
+        return $this->hasMany(Question::class);
     }
 }
