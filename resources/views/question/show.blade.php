@@ -43,10 +43,16 @@
             </div>
         </div>
 
-        <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
+        <div class="relative"
+             x-data="{ open: false }"
+             @click.outside="open = false"
+             @close.stop="open = false"
+             @keyup.space.window="open = !open"
+        >
             <div class="flex items-center">
                 <h2 class="font-bold text-xl mr-5">答え</h2>
-                <button @click="open = ! open" class="bg-white p-1 rounded-xl">表示切替</button>
+                <button @click="open = !open" class="bg-white p-1 rounded-xl">表示切替</button>
+                <p class="text-xs ml-2 text-black/60 hidden sm:block">※スペースキーで切替ができます。</p>
             </div>
 
             <div x-show="open"
