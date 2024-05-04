@@ -9,6 +9,30 @@
         @method('patch')
 
         <div>
+            <x-input-label for="book" value="問題集"/>
+            <div class="mt-2">
+                <select id="book"
+                        name="book_id"
+                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                >
+                    @foreach($books as $book)
+                        @php
+                            if(old('book_id')) {
+                                $selected = $book->id === old('book_id')  ? 'selected' : '';
+                            } else {
+                                $selected = $book->id === $question->book_id ? 'selected' : '';
+                            }
+                        @endphp
+                        <option value="{{ $book->id }}" {{ $selected }}>
+                            {{ $book->title }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <x-input-error :messages="$errors->get('book_id')" class="mt-2"/>
+        </div>
+
+        <div class="mt-4">
             <x-input-label for="body" value="問題文"/>
             <x-text-area id="body" class="block mt-1 w-full" name="body" required autofocus>
                 {{ old('body') ?? $question->body }}

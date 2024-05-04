@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Book;
 use App\Models\Question;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 
@@ -20,17 +20,22 @@ class DatabaseSeeder extends Seeder
 
         $users = User::factory(10)->create();
 
-        for ($i = 1; $i <= 21; $i++) {
-            Question::factory()->recycle($users)->create([
-                'body' => '地球と月はどちらが大きいですか？'.$i,
-                'answer' => '地球です。月の直径は地球の約1/4、質量は約1/81です。'.$i,
-            ]);
-        }
+        $books = Book::factory(21)
+            ->withImage()
+            ->recycle($users)
+            ->sequence(fn (Sequence $sequence) => ['title' => '問題集'.$sequence->index + 1])
+            ->create();
 
-        for ($i = 1; $i <= 21; $i++) {
-            Book::factory()->withImage()->recycle($users)->create([
-                'title' => '問題集'.$i,
-            ]);
+        foreach ($books as $book) {
+            Question::factory(3)
+                ->recycle($users)
+                ->for($book)
+                ->sequence(fn (Sequence $sequence) => [
+                    'body' => '地球と月はどちらが大きいですか？'.$sequence->index + 1,
+                    'answer' => '地球です。月の直径は地球の約1/4、質量は約1/81です。'.$sequence->index + 1,
+                    'default_order' => $sequence->index + 1,
+                ])
+                ->create();
         }
 
         $testUser = User::factory()->create([
@@ -38,23 +43,33 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        Question::factory()
+        Book::factory()
+            ->withImage()
             ->for($testUser)
-            ->count(3)
-            ->sequence(
-                [
-                    'body' => 'PHPがリリースされた年は？',
-                    'answer' => '1995年です。',
-                ],
-                [
-                    'body' => 'Laravelがリリースされた年は？',
-                    'answer' => '2011年です。',
-                ],
-                [
-                    'body' => 'Symphonyがリリースされた年は？',
-                    'answer' => '2005年です。',
-                ],
+            ->has(
+                Question::factory(3)
+                    ->for($testUser)
+                    ->sequence(
+                        [
+                            'body' => 'PHPがリリースされた年は？',
+                            'answer' => '1995年です。',
+                            'default_order' => 1,
+                        ],
+                        [
+                            'body' => 'Laravelがリリースされた年は？',
+                            'answer' => '2011年です。',
+                            'default_order' => 2,
+                        ],
+                        [
+                            'body' => 'Symphonyがリリースされた年は？',
+                            'answer' => '2005年です。',
+                            'default_order' => 3,
+                        ],
+                    )
             )
-            ->create();
+            ->create([
+                'title' => 'PHP雑学',
+                'description' => 'PHPに関連する雑学についての問題集です。',
+            ]);
     }
 }

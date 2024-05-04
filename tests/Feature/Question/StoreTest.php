@@ -1,13 +1,15 @@
 <?php
 
+use App\Models\Book;
 use App\Models\User;
 
 beforeEach(function () {
+    $this->user = User::factory()->create();
     $this->requestData = [
         'body' => '問題を登録する',
         'answer' => '答え',
+        'book_id' => Book::factory()->create()->id,
     ];
-    $this->user = User::factory()->create();
 });
 
 test('問題を登録できる', function () {

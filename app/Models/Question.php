@@ -44,4 +44,12 @@ class Question extends Model
     {
         $query->where('id', '>', $currentQuestion->id);
     }
+
+    /**
+     * 指定の問題集における次のorderを算出する
+     */
+    public static function getNextOrder(int $bookId): int
+    {
+        return self::where('book_id', $bookId)->count() + 1;
+    }
 }
