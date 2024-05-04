@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Question;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -28,7 +29,14 @@ class QuestionController extends Controller
             'answer' => 'required',
         ]);
 
-        Question::create([...$data, 'user_id' => auth()->id()]);
+        $parentBook = Book::first() ?? Book::factory()->create(); // TODO: bookをユーザーが指定するようにする
+
+        Question::create([
+            ...$data,
+            'user_id' => auth()->id(),
+            'book_id' => $parentBook->id,
+            'default_order' => ($parentBook->questions->max('default_order') ?? 0) + 1,
+        ]);
 
         return redirect()->route('questions.index');
     }

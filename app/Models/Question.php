@@ -13,9 +13,16 @@ class Question extends Model
 
     protected $fillable = [
         'user_id',
+        'book_id',
         'body',
         'answer',
+        'default_order',
     ];
+
+    public function book(): BelongsTo
+    {
+        return $this->belongsTo(Book::class);
+    }
 
     public function user(): BelongsTo
     {
