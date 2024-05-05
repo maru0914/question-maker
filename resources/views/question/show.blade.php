@@ -4,36 +4,26 @@
             一問一答
         </h2>
     </x-slot>
-    @auth
-        <div class="flex justify-end mb-6">
-            <a class="text-blue-600" href="{{ route('questions.create') }}">
-                新規作成
-            </a>
-            @can('update', $question)
-                /
-                <a class="text-gray-600" href="{{ route('questions.edit', ['question' => $question->id]) }}">
-                    編集
-                </a>
-            @endcan
-            @can('delete', $question)
-                /
-                <form class="text-red-500"
-                      method="POST"
-                      action="{{ route('questions.destroy', ['question' => $question->id]) }}"
-                >
-                    @csrf
-                    @method('delete')
 
-                    <button type="submit" onclick="return confirm('本当に削除しますか？')">
-                        削除
-                    </button>
-                </form>
-            @endcan
-        </div>
-    @endauth
-    <div class="space-y-5 mb-5">
-        <div>
-            <h2 class="font-bold text-xl ">問題文</h2>
+    <section class="space-y-5 mb-5">
+        <section>
+            <div class="relative">
+                <h2 class="font-bold text-xl ">問題文</h2>
+                @auth
+                    <div class="absolute right-0 top-0">
+                        <div class="flex">
+                            @can('update', $question)
+                                <x-edit-icon :url="route('questions.edit', ['question' => $question->id])"/>
+                            @endcan
+                            @can('delete', $question)
+                                <x-trash-icon :url="route('questions.destroy', ['question' => $question->id])"
+                                              :name="$question->body"/>
+                            @endcan
+                        </div>
+                    </div>
+                @endauth
+            </div>
+
             <div class="bg-white shadow rounded-lg mt-2 p-6">
                 <div class="flex min-w-0 gap-x-4">
                     <div class="min-w-0 flex-auto ">
@@ -41,13 +31,14 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="relative"
-             x-data="{ open: false }"
-             @click.outside="open = false"
-             @close.stop="open = false"
-             @keyup.space.window="open = !open"
+        <section
+            class="relative"
+            x-data="{ open: false }"
+            @click.outside="open = false"
+            @close.stop="open = false"
+            @keyup.space.window="open = !open"
         >
             <div class="flex items-center">
                 <h2 class="font-bold text-xl mr-5">答え</h2>
@@ -66,15 +57,13 @@
                  style="display: none;">
                 {!! nl2br(e($question->answer)) !!}
             </div>
-        </div>
-    </div>
+        </section>
 
-    <div class="flex items-center justify-between">
-        <div class="mt-3">
-            <a class="text-blue-600" href="{{route('questions.index')}}">問題一覧に戻る</a>
-        </div>
-        <div>
-            <span class="relative z-0 inline-flex rtl:flex-row-reverse shadow-sm rounded-md">
+        <section class="flex items-center justify-between">
+            <div>
+                <a class="text-blue-600" href="{{route('questions.index')}}">問題一覧に戻る</a>
+            </div>
+            <div class="relative z-0 inline-flex rtl:flex-row-reverse shadow-sm rounded-md">
                 {{-- Previous Page Link --}}
                 @if ($previous)
                     <a href="{{ route('questions.show', ['question' => $previous->id]) }}" rel="prev"
@@ -84,12 +73,12 @@
                     </a>
                 @else
                     <span id="previous" aria-disabled="true" aria-label="{{ __('pagination.previous') }}">
-                        <span
-                            class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default rounded-l-md leading-5 dark:bg-gray-800 dark:border-gray-600"
-                            aria-hidden="true">
-                            前へ
+                            <span
+                                class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default rounded-l-md leading-5 dark:bg-gray-800 dark:border-gray-600"
+                                aria-hidden="true">
+                                前へ
+                            </span>
                         </span>
-                    </span>
                 @endif
 
                 {{-- Next Page Link --}}
@@ -101,14 +90,13 @@
                     </a>
                 @else
                     <span id="next" aria-disabled="true" aria-label="{{ __('pagination.next') }}">
-                        <span
-                            class="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default rounded-r-md leading-5 dark:bg-gray-800 dark:border-gray-600"
-                            aria-hidden="true">
-                            次へ
+                            <span
+                                class="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default rounded-r-md leading-5 dark:bg-gray-800 dark:border-gray-600"
+                                aria-hidden="true">
+                                次へ
+                            </span>
                         </span>
-                    </span>
                 @endif
-            </span>
-        </div>
-    </div>
+            </div>
+        </section>
 </x-app-layout>

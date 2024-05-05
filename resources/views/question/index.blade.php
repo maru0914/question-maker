@@ -5,10 +5,8 @@
         </h2>
     </x-slot>
     @auth
-        <div class="flex justify-end mb-6">
-            <a class="text-right text-blue-600" href="{{ route('questions.create') }}">
-                問題を作成する
-            </a>
+        <div class="flex justify-end mb-2">
+            <x-create-icon :url="route('questions.create')"/>
         </div>
     @endauth
 
@@ -25,24 +23,11 @@
                         @auth
                             <div class="flex justify-end self-start py-2 text-sm leading-6 gap-1">
                                 @can('update', $question)
-                                    <p class="text-gray-600">
-                                        <a href="{{route('questions.edit', ['question' => $question->id])}}">
-                                            編集
-                                        </a>
-                                    </p>
+                                    <x-edit-icon :url="route('questions.edit', ['question' => $question->id])"/>
                                 @endcan
                                 @can('delete', $question)
-                                    <form class="text-red-500"
-                                          method="POST"
-                                          action="{{ route('questions.destroy', ['question' => $question->id]) }}"
-                                    >
-                                        @csrf
-                                        @method('delete')
-
-                                        <button type="submit" onclick="return confirm('本当に削除しますか？')">
-                                            削除
-                                        </button>
-                                    </form>
+                                    <x-trash-icon :url="route('questions.destroy', ['question' => $question->id])"
+                                                  :name="$question->body"/>
                                 @endcan
                             </div>
                         @endauth

@@ -5,14 +5,12 @@
         </h2>
     </x-slot>
     @auth
-        <div class="flex justify-end mb-6">
-            <a class="text-right text-blue-600" href="{{ route('books.create') }}">
-                問題集を作成する
-            </a>
+        <div class="flex justify-end mb-2">
+            <x-create-icon :url="route('books.create')"/>
         </div>
     @endauth
 
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         @foreach($books as $book)
             <x-panel class="relative">
                 <a href="{{ route('books.show', ['book' => $book->id]) }}" class="absolute inset-0"></a>
