@@ -13,8 +13,18 @@
                         name="book_id"
                         class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                 >
+
                     @foreach($books as $book)
-                        <option value="{{ $book->id }}">
+                        @php
+                            if(old('book_id')) {
+                                $selected = $book->id === old('book_id')  ? 'selected' : '';
+                            } elseif ($selected_book_id) {
+                                $selected = $book->id === $selected_book_id ? 'selected' : '';
+                            } else {
+                                $selected = '';
+                            }
+                        @endphp
+                        <option value="{{ $book->id }}" {{ $selected }}>
                             {{ $book->title }}
                         </option>
                     @endforeach

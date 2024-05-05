@@ -22,6 +22,7 @@ class QuestionController extends Controller
     {
         return view('question.create', [
             'books' => $request->user()->books,
+            'selected_book_id' => (int) $request->query('book_id'),
         ]);
     }
 

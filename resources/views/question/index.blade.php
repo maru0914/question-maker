@@ -47,7 +47,7 @@
                             </div>
                         @endauth
                     </div>
-                    <div class="text-black/50 text-xs text-end">
+                    <div class="text-black/30 text-xs text-end">
                         by {{ $question->user->username }}
                     </div>
                 </li>

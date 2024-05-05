@@ -4,7 +4,7 @@
             {{ $book->title }}
         </h2>
     </x-slot>
-    <div class="grid sm:grid-cols-3 gap-10 py-12">
+    <div class="grid sm:grid-cols-3 gap-10 py-12 items-center">
         <div class="space-y-4">
             <div class="bg-white p-5 rounded-lg shadow">
                 <img class="max-h-48 mx-auto" src="{{ asset('storage/' . $book->image_path) }}" alt="">
@@ -16,9 +16,7 @@
     </div>
 
     <div class="flex justify-between mb-6">
-        <div>
-            <a href="#">問題集を始める(実装中)</a>
-        </div>
+        <x-secondary-link>問題集を始める(実装中)</x-secondary-link>
         @auth
             <div class="flex">
                 @can('update', $book)
@@ -41,7 +39,37 @@
                     </form>
                 @endcan
             </div>
+        @endauth
+    </div>
+    <x-section-heading>問題一覧 <span class="text-black/50 font-light text-sm">(全{{ $book->questions->count() }}問)</span></x-section-heading>
+
+    <div class="mt-3 py-3">
+        @if($book->questions->isNotEmpty())
+            <div class="bg-white shadow rounded-lg px-5 pt-1 sm:px-6">
+                <ul role="list" class="divide-y divide-gray-100">
+                    @foreach($book->questions as $question)
+                        <li>
+                            <a class="block text-blue-600 py-2"
+                               href="{{ route('questions.show', ['question' => $question->id]) }}">
+                                {{ $question->body }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        @else
+            @can('update', $book)
+                <x-secondary-link class="mt-2" href="{{ route('questions.create', ['book_id' => $book->id]) }}">
+                    問題登録へ
+                </x-secondary-link>
+            @else
+                <p>
+                    この問題集にはまだ問題が登録されていません！<br>
+                    問題が登録されるのを待ちましょう！
+                </p>
+            @endcan
+        @endif
 
     </div>
-    @endauth
+
 </x-app-layout>

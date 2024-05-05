@@ -21,6 +21,9 @@
                         <img class="max-h-40 mx-auto " src="{{ asset('storage/' . $book->image_path) }}" alt="">
                     </div>
                     <h2 class="font-medium mt-auto text-lg text-center">{{ $book->title }}</h2>
+                    <div class="text-black/30 text-xs text-end -mr-2">
+                        by {{ $book->user->username }}
+                    </div>
                 </div>
             </x-panel>
         @endforeach
