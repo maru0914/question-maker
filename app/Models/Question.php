@@ -30,19 +30,19 @@ class Question extends Model
     }
 
     /**
-     *  Scope 指定された問題以前に作成
+     *  Scope 指定された問題より前に作成
      */
-    public function scopeBefore(Builder $query, self $currentQuestion): void
+    public function scopeBefore(Builder $query, self $currentQuestion, string $key = 'id'): void
     {
-        $query->where('id', '<', $currentQuestion->id);
+        $query->where($key, '<', $currentQuestion->{$key});
     }
 
     /**
-     *  Scope 指定された問題以降に作成
+     *  Scope 指定された問題より後に作成
      */
-    public function scopeAfter(Builder $query, self $currentQuestion): void
+    public function scopeAfter(Builder $query, self $currentQuestion, string $key = 'id'): void
     {
-        $query->where('id', '>', $currentQuestion->id);
+        $query->where($key, '>', $currentQuestion->{$key});
     }
 
     /**

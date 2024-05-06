@@ -30,7 +30,11 @@
         </section>
 
         <section>
-            <x-secondary-link>問題集を始める(実装中)</x-secondary-link>
+            @if($book->questions->isNotEmpty())
+                <x-secondary-link href="{{ route('books.questions.show',[$book->id, $first_question->id]) }}">
+                    問題集を始める
+                </x-secondary-link>
+            @endif
         </section>
 
         <section class="space-y-2">
@@ -46,13 +50,13 @@
                                 @can('delete', $question)
                                     <div class="absolute right-0 text-red-600">
                                         <x-trash-icon
-                                            :url="route('questions.destroy', ['question' => $question->id])"
-                                            :name="$question->body"/>
+                                                :url="route('questions.destroy', ['question' => $question->id])"
+                                                :name="$question->body"/>
                                     </div>
                                 @endcan
 
                                 <a class="inline-block text-blue-600 py-2"
-                                   href="{{ route('questions.show', ['question' => $question->id]) }}">
+                                   href="{{ route('books.questions.show', [$book->id, $question->id]) }}">
                                     {{ $question->body }}
                                 </a>
                             </li>
@@ -70,7 +74,7 @@
 
             @can('update', $book)
                 <div class="ml-5">
-                    <x-create-icon :url="route('questions.create', ['book_id' => $book->id])" />
+                    <x-create-icon :url="route('questions.create', ['book_id' => $book->id])"/>
                 </div>
             @endcan
 
