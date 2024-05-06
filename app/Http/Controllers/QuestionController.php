@@ -45,10 +45,13 @@ class QuestionController extends Controller
 
     public function show(Question $question): View
     {
+        $previous = Question::after($question)->oldest('id')->first();
+        $next = Question::before($question)->latest('id')->first();
+
         return view('question.show', [
             'question' => $question,
-            'previous' => Question::after($question)->oldest('id')->first(),
-            'next' => Question::before($question)->latest('id')->first(),
+            'previous_link' => $previous ? route('questions.show', [$previous->id]) : null,
+            'next_link' => $next ? route('questions.show', [$next->id]) : null,
         ]);
     }
 

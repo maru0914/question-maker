@@ -1,13 +1,22 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            一問一答
+            @isset($book)
+                <a href="{{ route('books.show', ['book' => $book->id]) }}">{{ $book->title }}</a>
+            @else
+                一問一答
+            @endisset
         </h2>
     </x-slot>
 
-    <section class="space-y-5 mb-5">
+    <div class="space-y-5 mb-5">
         <section>
             <div class="relative">
+                @isset($book)
+                    <div class="font-light text-base text-gray-500">{{ $question->default_order }}問目
+                        (全{{ $book->questions->count() }}問)
+                    </div>
+                @endisset
                 <h2 class="font-bold text-xl ">問題文</h2>
                 @auth
                     <div class="absolute right-0 top-0">
@@ -60,13 +69,15 @@
         </section>
 
         <section class="flex items-center justify-between">
-            <div>
-                <a class="text-blue-600" href="{{route('questions.index')}}">問題一覧に戻る</a>
-            </div>
+            @empty($book)
+                <div>
+                    <a class="text-blue-600" href="{{route('questions.index')}}">問題一覧に戻る</a>
+                </div>
+            @endempty
             <div class="relative z-0 inline-flex rtl:flex-row-reverse shadow-sm rounded-md">
                 {{-- Previous Page Link --}}
-                @if ($previous)
-                    <a href="{{ route('questions.show', ['question' => $previous->id]) }}" rel="prev"
+                @if ($previous_link)
+                    <a href="{{$previous_link}}" rel="prev"
                        class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-md leading-5 hover:text-gray-400 focus:z-10 focus:outline-none focus:ring ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150 dark:bg-gray-800 dark:border-gray-600 dark:active:bg-gray-700 dark:focus:border-blue-800"
                        aria-label="{{ __('pagination.previous') }}">
                         前へ
@@ -82,8 +93,8 @@
                 @endif
 
                 {{-- Next Page Link --}}
-                @if ($next)
-                    <a href="{{ route('questions.show', ['question' => $next->id]) }}" rel="next"
+                @if ($next_link)
+                    <a href="{{ $next_link }}" rel="next"
                        class="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-md leading-5 hover:text-gray-400 focus:z-10 focus:outline-none focus:ring ring-gray-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150 dark:bg-gray-800 dark:border-gray-600 dark:active:bg-gray-700 dark:focus:border-blue-800"
                        aria-label="{{ __('pagination.next') }}">
                         次へ
@@ -99,4 +110,5 @@
                 @endif
             </div>
         </section>
+    </div>
 </x-app-layout>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookQuestionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,8 @@ Route::patch('/questions/{question}', [QuestionController::class, 'update'])->na
 Route::delete('/questions/{question}', [QuestionController::class, 'destroy'])->name('questions.destroy')
     ->middleware('auth')
     ->can('delete', 'question');
+
+Route::get('/books/{book}/questions/{question}', [BookQuestionController::class, 'show'])->name('books.questions.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

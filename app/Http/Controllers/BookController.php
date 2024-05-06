@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\StorageException;
 use App\Models\Book;
 use App\Services\ImageService;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -53,7 +54,10 @@ class BookController extends Controller
     public function show(Book $book): View
     {
         return view('book.show', [
-            'book' => $book,
+            'book' => $book->load(['questions' => function (HasMany $query) {
+                $query->orderBy('default_order');
+            }]),
+            'first_question' => $book->questions->firstWhere('default_order', 1),
         ]);
     }
 
