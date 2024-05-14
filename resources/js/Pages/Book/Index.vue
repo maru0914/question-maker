@@ -1,9 +1,9 @@
 <script setup>
-import {Head} from "@inertiajs/vue3";
+import {Head, Link} from "@inertiajs/vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import CreateIcon from "@/Components/CreateIcon.vue";
 import Panel from "@/Components/Panel.vue";
-import {Link} from '@inertiajs/vue3';
+import Pagination from "@/Components/Pagination.vue";
 
 
 defineProps({
@@ -25,7 +25,7 @@ defineProps({
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <Panel v-for="book in books.data" class="relative">
+            <Panel v-for="book in books.data" :key="book.id" class="relative">
                 <Link :href="route('books.show', book.id)" class="absolute inset-0"></Link>
                 <div class="flex flex-col w-full h-full">
                     <div class="flex items-center my-auto">
@@ -38,9 +38,6 @@ defineProps({
                 </div>
             </Panel>
         </div>
-
-        <!--        <div>-->
-        <!--            {{ $books->links() }}-->
-        <!--        </div>-->
+        <Pagination :meta="books.meta"/>
     </AppLayout>
 </template>

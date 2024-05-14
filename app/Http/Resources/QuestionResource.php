@@ -2,14 +2,14 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Book;
+use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @mixin Book
+ * @mixin Question
  */
-class BookResource extends JsonResource
+class QuestionResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,9 +21,10 @@ class BookResource extends JsonResource
         return [
             'id' => $this->id,
             'user' => UserResource::make($this->whenLoaded('user')),
-            'title' => $this->title,
-            'description' => nl2br(e($this->description)),
-            'image_path' => $this->image_path,
+            'book' => BookResource::make($this->whenLoaded('book')),
+            'body' => $this->body,
+            'default_order' => $this->default_order,
+            'answer' => nl2br(e($this->answer)),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'can' => [

@@ -2,26 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BookResource;
+use App\Http\Resources\QuestionResource;
 use App\Models\Question;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\View\View;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class QuestionController extends Controller
 {
-    public function index(): View
+    public function index(): Response
     {
-        return view('question.index', [
-            'questions' => Question::latest('id')->paginate(20),
+        return Inertia::render('Question/Index', [
+            'questions' => QuestionResource::collection(Question::with('user')->latest('id')->paginate(20)),
         ]);
     }
 
-    public function create(Request $request): View
+    public function create(Request $request): Response
     {
-        return view('question.create', [
-            'books' => $request->user()->books,
+        return Inertia::render('Question/Create', [
+            'books' => BookResource::collection($request->user()->books),
             'selected_book_id' => (int) $request->query('book_id'),
         ]);
     }
@@ -43,23 +46,23 @@ class QuestionController extends Controller
         return redirect()->route('questions.index');
     }
 
-    public function show(Question $question): View
+    public function show(Question $question): Response
     {
         $previous = Question::after($question)->oldest('id')->first();
         $next = Question::before($question)->latest('id')->first();
 
-        return view('question.show', [
-            'question' => $question,
+        return Inertia::render('Question/Show', [
+            'question' => QuestionResource::make($question),
             'previous_link' => $previous ? route('questions.show', [$previous->id]) : null,
             'next_link' => $next ? route('questions.show', [$next->id]) : null,
         ]);
     }
 
-    public function edit(Request $request, Question $question): View
+    public function edit(Request $request, Question $question): Response
     {
-        return view('question.edit', [
-            'question' => $question,
-            'books' => $request->user()->books,
+        return Inertia::render('Question/Edit', [
+            'question' => QuestionResource::make($question->load('book')),
+            'books' => BookResource::collection($request->user()->books),
         ]);
     }
 
