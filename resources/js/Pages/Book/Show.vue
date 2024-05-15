@@ -57,7 +57,7 @@ const deleteQuestion = (question) => {
                         <img class="max-h-48 mx-auto" :src="'/storage/' + book.image_path" alt="">
                     </div>
                     <div class="sm:col-span-2 p-4">
-                        <h1 class="text-lg font-medium">{{ book.description }}</h1>
+                        <p v-html="book.description" class="text-lg font-medium"></p>
                     </div>
                 </div>
             </section>

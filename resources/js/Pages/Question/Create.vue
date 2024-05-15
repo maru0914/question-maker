@@ -53,7 +53,7 @@ const form = useForm({
                     id="body"
                     type="text"
                     class="block mt-1 w-full"
-                    rows="4"
+                    rows="1"
                     v-model="form.body"
                     required
                     autofocus
