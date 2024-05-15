@@ -1,16 +1,15 @@
 <?php
 
+use App\Http\Resources\BookResource;
 use App\Models\Book;
 
 beforeEach(function () {
     $this->book = Book::factory()->create();
 });
 
-test('登録されている内容を閲覧できる', function () {
+test('bookがコンポーネントに渡される', function () {
     $this->get("/books/{$this->book->id}")
-        ->assertOk()
-        ->assertSee($this->book->title)
-        ->assertSee($this->book->description);
+        ->assertHasResource('book', BookResource::make($this->book));
 });
 
 test('idが存在しない場合、404を返す', function () {

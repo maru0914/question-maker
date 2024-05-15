@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\StorageException;
+use App\Http\Resources\BookResource;
+use App\Http\Resources\QuestionResource;
 use App\Models\Book;
 use App\Services\ImageService;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\View\View;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class BookController extends Controller
 {
@@ -17,16 +20,16 @@ class BookController extends Controller
     {
     }
 
-    public function index(): View
+    public function index(): Response
     {
-        return view('book.index', [
-            'books' => Book::latest('id')->paginate(20),
+        return Inertia::render('Book/Index', [
+            'books' => BookResource::collection(Book::with('user')->latest('id')->paginate(20)),
         ]);
     }
 
-    public function create(): View
+    public function create(): Response
     {
-        return view('book.create');
+        return Inertia::render('Book/Create');
     }
 
     /**
@@ -51,20 +54,22 @@ class BookController extends Controller
         return redirect()->route('books.index');
     }
 
-    public function show(Book $book): View
+    public function show(Book $book): Response
     {
-        return view('book.show', [
-            'book' => $book->load(['questions' => function (HasMany $query) {
-                $query->orderBy('default_order');
-            }]),
-            'first_question' => $book->questions->firstWhere('default_order', 1),
+        $book->load(['questions' => function (HasMany $query) {
+            $query->orderBy('default_order');
+        }]);
+
+        return Inertia::render('Book/Show', [
+            'book' => BookResource::make($book),
+            'questions' => QuestionResource::collection($book->questions),
         ]);
     }
 
-    public function edit(Book $book): View
+    public function edit(Book $book): Response
     {
-        return view('book.edit', [
-            'book' => $book,
+        return Inertia::render('Book/Edit', [
+            'book' => BookResource::make($book),
         ]);
     }
 
@@ -73,7 +78,7 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book): RedirectResponse
     {
-
+        ray($request);
         $data = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
