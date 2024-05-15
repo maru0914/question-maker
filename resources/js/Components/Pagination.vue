@@ -7,7 +7,7 @@
                 前へ
             </Link>
             <span v-else
-                  class="relative inline-flex items-center rounded-md border border-gray-300 disabled:cursor-none bg-white/20 px-4 py-2 text-sm font-medium text-gray-400">
+                  class="relative inline-flex items-center rounded-md border border-gray-300 disabled:cursor-none bg-gray-100 px-4 py-2 text-sm font-medium text-gray-400">
                 前へ
             </span>
             <Link v-if="nextPageUrl"
@@ -16,7 +16,7 @@
                 次へ
             </Link>
             <span v-else
-                  class="relative inline-flex items-center rounded-md border border-gray-300 disabled:cursor-none bg-white/20 px-4 py-2 text-sm font-medium text-gray-400">
+                  class="relative inline-flex items-center rounded-md border border-gray-300 disabled:cursor-none bg-gray-100 px-4 py-2 text-sm font-medium text-gray-400">
                 次へ
             </span>
         </div>
@@ -47,7 +47,7 @@
                         <span
                             v-else
                             v-html="link.label"
-                            class="relative inline-flex bg-gray-200 items-center px-3 py-2 text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0 first:rounded-l-md last:rounded-r-md"
+                            class="relative inline-flex bg-gray-100 items-center px-3 py-2 text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0 first:rounded-l-md last:rounded-r-md"
                             :class="{
                             'rounded-l-md': link.label === '&laquo; 前',
                             'rounded-r-md': link.label === '&laquo; 次'

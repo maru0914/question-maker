@@ -5,13 +5,16 @@ import CreateIcon from "@/Components/CreateIcon.vue";
 import EditIcon from "@/Components/EditIcon.vue";
 import TrashIcon from "@/Components/TrashIcon.vue";
 import Pagination from "@/Components/Pagination.vue";
+import {computed} from "vue";
 
-defineProps({
+const props = defineProps({
     questions: {
         type: Object,
         required: true
     },
 });
+
+const hasMultiplePages = computed(() => props.questions.meta.total > props.questions.meta.per_page);
 
 const deleteQuestion = (question) => {
     if (!confirm(`「${question.body}」を削除しますか？`)) {
@@ -54,7 +57,7 @@ const deleteQuestion = (question) => {
                 </li>
             </ul>
         </div>
-        <Pagination :meta="questions.meta"/>
+        <Pagination v-if="hasMultiplePages" :meta="questions.meta"/>
     </AppLayout>
 
 </template>

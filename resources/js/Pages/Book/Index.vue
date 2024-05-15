@@ -4,14 +4,17 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import CreateIcon from "@/Components/CreateIcon.vue";
 import Panel from "@/Components/Panel.vue";
 import Pagination from "@/Components/Pagination.vue";
+import {computed} from "vue";
 
 
-defineProps({
+const props = defineProps({
     books: {
         type: Object,
         required: true
     },
 });
+
+const hasMultiplePages = computed(() => props.books.meta.total > props.books.meta.per_page);
 
 </script>
 
@@ -38,6 +41,6 @@ defineProps({
                 </div>
             </Panel>
         </div>
-        <Pagination :meta="books.meta"/>
+        <Pagination v-if="hasMultiplePages" :meta="books.meta"/>
     </AppLayout>
 </template>
