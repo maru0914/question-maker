@@ -4,7 +4,6 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookQuestionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -19,14 +18,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::redirect('/', '/books');
 
 Route::get('/books', [BookController::class, 'index'])->name('books.index');
 Route::get('/books/create', [BookController::class, 'create'])->name('books.create')->middleware('auth');
