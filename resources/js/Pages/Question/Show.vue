@@ -83,7 +83,7 @@ const deleteQuestion = (question) => {
                 </div>
 
                 <Transition class="mt-2 bg-white shadow rounded-lg p-6">
-                    <p v-if="open">{{ question.answer }}</p>
+                    <p v-if="open" v-html="question.answer"></p>
                 </Transition>
             </section>
 
