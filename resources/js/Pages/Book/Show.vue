@@ -39,8 +39,6 @@ const deleteQuestion = (question) => {
 <template>
     <Head :title="book.title"/>
     <AppLayout>
-        <template #header>{{ book.title }}</template>
-
         <div class="space-y-6">
             <section class="relative border border-gray-200 shadow rounded-md bg-white/30">
                 <div v-if="$page.props.auth.user" class="absolute right-0 top-0">
@@ -57,7 +55,7 @@ const deleteQuestion = (question) => {
                         <img class="max-h-48 mx-auto" :src="'/storage/' + book.image_path" alt="">
                     </div>
                     <div class="sm:col-span-2 p-4">
-                        <p v-html="book.description" class="text-lg font-medium"></p>
+                        <p v-html="book.description" class="text-md"></p>
                     </div>
                 </div>
             </section>
@@ -70,9 +68,10 @@ const deleteQuestion = (question) => {
                 </SecondaryLInk>
             </section>
 
+
             <section class="space-y-2">
                 <SectionHeading>
-                    問題一覧 <span class="text-black/50 font-light text-sm">(全{{ questions.length }}問)</span>
+                    問題一覧 <span class="text-sm">(全{{ questions.length }}問)</span>
                 </SectionHeading>
 
                 <div v-if="questions.length !==0"

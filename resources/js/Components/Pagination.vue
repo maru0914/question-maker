@@ -1,24 +1,10 @@
 <template>
-    <div class="flex items-center justify-between border-t border-gray-200 py-3">
+    <div class="flex items-center justify-between py-3">
         <div class="flex flex-1 justify-between sm:hidden">
-            <Link v-if="previousPageUrl" :href="previousPageUrl"
-                  class="relative inline-flex items-center rounded-md border border-gray-300 disabled:cursor-none bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-            >
-                前へ
-            </Link>
-            <span v-else
-                  class="relative inline-flex items-center rounded-md border border-gray-300 disabled:cursor-none bg-gray-100 px-4 py-2 text-sm font-medium text-gray-400">
-                前へ
-            </span>
-            <Link v-if="nextPageUrl"
-                  :href="nextPageUrl"
-                  class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
-                次へ
-            </Link>
-            <span v-else
-                  class="relative inline-flex items-center rounded-md border border-gray-300 disabled:cursor-none bg-gray-100 px-4 py-2 text-sm font-medium text-gray-400">
-                次へ
-            </span>
+            <PaginationLink v-if="previousPageUrl" :href="previousPageUrl" type="previous" />
+            <PaginationSpan v-else type="previous" />
+            <PaginationLink v-if="nextPageUrl" :href="nextPageUrl" type="next" />
+            <PaginationSpan v-else type="next" />
         </div>
         <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
             <div>
@@ -64,6 +50,8 @@
 <script setup>
 import {Link} from "@inertiajs/vue3";
 import {computed} from "vue";
+import PaginationLink from "@/Components/PaginationLink.vue";
+import PaginationSpan from "@/Components/PaginationSpan.vue";
 
 const props = defineProps({
     meta: {

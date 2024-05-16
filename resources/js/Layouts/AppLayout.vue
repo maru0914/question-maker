@@ -12,12 +12,12 @@ const showingNavigationDropdown = ref(false);
 
 <template>
     <div>
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-50">
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
-                        <div class="flex">
+                        <div class="flex flex-1">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('dashboard')">
@@ -28,25 +28,28 @@ const showingNavigationDropdown = ref(false);
                             </div>
 
                             <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink v-if="$page.props.auth.user" :href="route('dashboard')"
-                                         :active="route().current('dashboard')">
-                                    管理画面
-                                </NavLink>
-                                <NavLink :href="route('books.index')" :active="route().current('books.index')">
-                                    問題集
-                                </NavLink>
-                                <NavLink :href="route('questions.index')" :active="route().current('questions.index')">
-                                    問題一覧
-                                </NavLink>
-                            </div>
-                        </div>
-
-                        <div class="hidden sm:flex sm:items-center sm:ms-6">
-                            <!-- Settings Dropdown -->
-                            <div class="ms-3 relative">
-                                <Dropdown v-if="$page.props.auth.user" align="right" width="48">
-                                    <template #trigger>
+                            <div class="hidden sm:flex justify-between sm:flex-1">
+                                <div class="flex flex-1 space-x-8 sm:-my-px sm:ms-10">
+                                    <NavLink v-if="$page.props.auth.user" :href="route('dashboard')"
+                                             :active="route().current('dashboard')">
+                                        管理画面
+                                    </NavLink>
+                                    <NavLink :href="route('books.index')" :active="route().current('books.index')">
+                                        問題集
+                                    </NavLink>
+                                    <NavLink :href="route('questions.index')"
+                                             :active="route().current('questions.index')">
+                                        問題一覧
+                                    </NavLink>
+                                    <NavLink v-if="$page.props.auth.user"
+                                             :href="route('books.create')"
+                                             :active="route().current('books.create')">
+                                        問題集作成
+                                    </NavLink>
+                                </div>
+                                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                    <Dropdown class="self-center" v-if="$page.props.auth.user" align="right" width="48">
+                                        <template #trigger>
                                         <span class="inline-flex rounded-md">
                                             <button
                                                 type="button"
@@ -68,20 +71,20 @@ const showingNavigationDropdown = ref(false);
                                                 </svg>
                                             </button>
                                         </span>
-                                    </template>
+                                        </template>
 
-                                    <template #content>
-                                        <DropdownLink :href="route('profile.edit')"> アカウント</DropdownLink>
-                                        <DropdownLink :href="route('logout')" method="post" as="button">
-                                            ログアウト
-                                        </DropdownLink>
-                                    </template>
-                                </Dropdown>
-                                <div v-else class="flex">
-                                    <NavLink :href="route('login')"> ログイン</NavLink>
-                                    <NavLink :href="route('register')"> 新規登録</NavLink>
+                                        <template #content>
+                                            <DropdownLink :href="route('profile.edit')"> アカウント</DropdownLink>
+                                            <DropdownLink :href="route('logout')" method="post" as="button">
+                                                ログアウト
+                                            </DropdownLink>
+                                        </template>
+                                    </Dropdown>
+                                    <div v-else class="flex">
+                                        <NavLink :href="route('login')"> ログイン</NavLink>
+                                        <NavLink :href="route('register')"> 新規登録</NavLink>
+                                    </div>
                                 </div>
-
                             </div>
                         </div>
 
@@ -123,20 +126,15 @@ const showingNavigationDropdown = ref(false);
                     :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }"
                     class="sm:hidden"
                 >
-                    <div v-if="$page.props.auth.user" class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            管理画面
-                        </ResponsiveNavLink>
+                    <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('books.index')" :active="route().current('books.index')">
                             問題集
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('questions.index')" :active="route().current('questions.index')">
+                        <ResponsiveNavLink :href="route('questions.index')"
+                                           :active="route().current('questions.index')">
                             問題一覧
                         </ResponsiveNavLink>
-                    </div>
-
-                    <!-- Responsive Settings Options -->
-                    <div class="pt-4 pb-1 border-t border-gray-200">
+                        <!-- Responsive Settings Options -->
                         <div v-if="$page.props.auth.user">
                             <div class="px-4">
                                 <div class="font-medium text-base text-gray-800">
@@ -145,7 +143,7 @@ const showingNavigationDropdown = ref(false);
                                 <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}</div>
                             </div>
 
-                            <div class="mt-3 space-y-1">
+                            <div class="space-y-1">
                                 <ResponsiveNavLink :href="route('profile.edit')"> アカウント</ResponsiveNavLink>
                                 <ResponsiveNavLink :href="route('logout')" method="post" as="button">
                                     ログアウト
@@ -153,7 +151,7 @@ const showingNavigationDropdown = ref(false);
                             </div>
                         </div>
                         <div v-else>
-                            <div class="mt-3 space-y-1">
+                            <div class="space-y-1">
                                 <ResponsiveNavLink :href="route('login')"> ログイン</ResponsiveNavLink>
                                 <ResponsiveNavLink :href="route('register')"> 新規登録</ResponsiveNavLink>
                             </div>
@@ -162,19 +160,22 @@ const showingNavigationDropdown = ref(false);
                 </div>
             </nav>
 
-            <!-- Page Heading -->
-            <header class="bg-white shadow" v-if="$slots.header">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-gray-600">
+                <!-- Page Heading -->
+                <header v-if="$slots.header" class="text-center">
+                    <h2 class="py-3 font-semibold text-xl">
                         <slot name="header"/>
                     </h2>
-                </div>
-            </header>
+                    <p v-if="$slots.subtitle" class="mb-3">
+                        <slot name="subtitle"/>
+                    </p>
+                </header>
 
-            <!-- Page Content -->
-            <main class="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8 text-black/80">
-                <slot/>
-            </main>
+                <!-- Page Content -->
+                <main class="py-3">
+                    <slot/>
+                </main>
+            </div>
         </div>
     </div>
 </template>
