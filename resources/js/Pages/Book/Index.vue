@@ -22,6 +22,7 @@ const hasMultiplePages = computed(() => props.books.meta.total > props.books.met
     <Head title="問題集一覧"/>
     <AppLayout>
         <template #header>問題集一覧</template>
+        <template #subtitle>好きな問題集を選んで、知識を身につけましょう！</template>
 
         <div v-if="$page.props.auth.user" class="flex justify-end mb-2">
             <CreateIcon :href="route('books.create')"/>
@@ -34,7 +35,7 @@ const hasMultiplePages = computed(() => props.books.meta.total > props.books.met
                     <div class="flex items-center my-auto">
                         <img class="max-h-40 mx-auto " :src="'/storage/' + book.image_path" alt="">
                     </div>
-                    <h2 class="font-medium mt-auto text-lg text-center">{{ book.title }}</h2>
+                    <h2 class="mt-auto text-lg text-center">{{ book.title }}</h2>
                     <div class="text-black/30 text-xs text-end -mr-2">
                         by {{ book.user.username }}
                     </div>
