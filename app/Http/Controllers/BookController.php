@@ -18,6 +18,7 @@ class BookController extends Controller
 {
     public function __construct(protected ImageService $imageService)
     {
+        $this->authorizeResource(Book::class);
     }
 
     public function index(): Response

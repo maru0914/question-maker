@@ -20,7 +20,7 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex flex-1">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('books.index')">
                                     <ApplicationLogo
                                         class="block h-9 w-auto fill-current text-gray-800"
                                     />
@@ -30,10 +30,6 @@ const showingNavigationDropdown = ref(false);
                             <!-- Navigation Links -->
                             <div class="hidden sm:flex justify-between sm:flex-1">
                                 <div class="flex flex-1 space-x-8 sm:-my-px sm:ms-10">
-                                    <NavLink v-if="$page.props.auth.user" :href="route('dashboard')"
-                                             :active="route().current('dashboard')">
-                                        管理画面
-                                    </NavLink>
                                     <NavLink :href="route('books.index')" :active="route().current('books.index')">
                                         問題集
                                     </NavLink>
