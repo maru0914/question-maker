@@ -15,7 +15,8 @@ beforeEach(function () {
 test('問題を登録できる', function () {
     $this->actingAs($this->user)
         ->post('/questions', $this->requestData)
-        ->assertRedirect('/questions');
+        ->assertRedirect('/questions/create');
+
     $this->assertDatabaseHas('questions', $this->requestData);
 });
 

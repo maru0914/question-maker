@@ -14,17 +14,9 @@ use Inertia\Response;
 
 class QuestionController extends Controller
 {
-
     public function __construct()
     {
         $this->authorizeResource(Question::class);
-    }
-
-    public function index(): Response
-    {
-        return Inertia::render('Question/Index', [
-            'questions' => QuestionResource::collection(Question::with('user')->latest('id')->paginate(20)),
-        ]);
     }
 
     public function create(Request $request): Response
@@ -49,16 +41,25 @@ class QuestionController extends Controller
             'default_order' => Question::getNextOrder(bookId: $data['book_id']),
         ]);
 
-        return redirect()->route('questions.index');
+        return redirect()->route('questions.create');
     }
 
     public function show(Question $question): Response
     {
-        $previous = Question::after($question)->oldest('id')->first();
-        $next = Question::before($question)->latest('id')->first();
+        $question->load('book');
+
+        $previous = Question::before($question, 'default_order')
+            ->where('book_id', $question->book_id)
+            ->latest('default_order')
+            ->first();
+        $next = Question::after($question, 'default_order')
+            ->where('book_id', $question->book_id)
+            ->oldest('default_order')
+            ->first();
 
         return Inertia::render('Question/Show', [
             'question' => QuestionResource::make($question),
+            'questions_count' => $question->book->questions()->count(),
             'previous_link' => $previous ? route('questions.show', [$previous->id]) : null,
             'next_link' => $next ? route('questions.show', [$next->id]) : null,
         ]);
@@ -84,13 +85,13 @@ class QuestionController extends Controller
             ],
         ]));
 
-        return redirect()->route('questions.index');
+        return redirect()->route('questions.show', [$question->id]);
     }
 
     public function destroy(Question $question): RedirectResponse
     {
         $question->delete();
 
-        return redirect()->route('questions.index');
+        return redirect()->route('books.show', [$question->book_id]);
     }
 }

@@ -11,7 +11,7 @@ beforeEach(function () {
 test('問題を削除できる', function () {
     $this->actingAs($this->user)
         ->delete("/questions/{$this->question->id}")
-        ->assertRedirect('/questions');
+        ->assertRedirect("/books/{$this->question->book_id}");
 
     $this->assertDatabaseMissing('questions', [
         'id' => $this->question->id,

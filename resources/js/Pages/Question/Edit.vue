@@ -80,8 +80,8 @@ const form = useForm({
             </div>
 
             <div class="flex items-center justify-between mt-4">
-                <Link class="text-blue-600" :href="route('questions.index')">
-                    問題一覧に戻る
+                <Link class="text-blue-600" :href="route('questions.show', [question.book.id])">
+                    問題集に戻る
                 </Link>
                 <PrimaryButton class="ms-4">
                     更新

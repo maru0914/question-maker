@@ -33,10 +33,6 @@ const showingNavigationDropdown = ref(false);
                                     <NavLink :href="route('books.index')" :active="route().current('books.index')">
                                         問題集
                                     </NavLink>
-                                    <NavLink :href="route('questions.index')"
-                                             :active="route().current('questions.index')">
-                                        問題一覧
-                                    </NavLink>
                                     <NavLink v-if="$page.props.auth.user"
                                              :href="route('books.create')"
                                              :active="route().current('books.create')">
@@ -125,10 +121,6 @@ const showingNavigationDropdown = ref(false);
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('books.index')" :active="route().current('books.index')">
                             問題集
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('questions.index')"
-                                           :active="route().current('questions.index')">
-                            問題一覧
                         </ResponsiveNavLink>
                         <!-- Responsive Settings Options -->
                         <div v-if="$page.props.auth.user">

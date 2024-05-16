@@ -62,7 +62,7 @@ const deleteQuestion = (question) => {
 
             <section>
                 <SecondaryLInk v-if="questions.length !==0"
-                               :href="route('books.questions.show', [book, questions[0]])"
+                               :href="route('questions.show', [questions[0]])"
                 >
                     問題集を始める
                 </SecondaryLInk>
@@ -86,7 +86,7 @@ const deleteQuestion = (question) => {
 
                             <Link
                                 class="inline-block text-blue-600 py-2"
-                                :href="route('books.questions.show', [book, question])">
+                                :href="route('questions.show', question.id)">
                                 {{ question.body }}
                             </Link>
                         </li>
