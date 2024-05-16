@@ -1,5 +1,5 @@
 <script setup>
-import {Head, Link, useForm} from "@inertiajs/vue3";
+import {Head, useForm} from "@inertiajs/vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import {ref} from "vue";
 import InputLabel from "@/Components/InputLabel.vue";
@@ -129,12 +129,7 @@ const submit = () => {
 
                 <InputError :message="form.errors.image" class="mt-2"/>
             </div>
-            <div class="flex items-center justify-between mt-4">
-                <Link
-                    class="text-blue-600"
-                    :href="route('books.index')">
-                    問題集一覧に戻る
-                </Link>
+            <div class="flex justify-end">
                 <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     作成
                 </PrimaryButton>
