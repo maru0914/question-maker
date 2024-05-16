@@ -19,7 +19,8 @@ beforeEach(function () {
 test('問題を更新できる', function () {
     $this->actingAs($this->user)
         ->patch("/questions/{$this->question->id}", $this->requestData)
-        ->assertRedirect('/questions');
+        ->assertRedirect("/questions/{$this->question->id}");
+
     $this->assertDatabaseHas('questions', [
         'id' => $this->question->id,
         'body' => $this->requestData['body'],

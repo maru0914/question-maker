@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\BookController;
-use App\Http\Controllers\BookQuestionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
@@ -18,9 +17,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('books', BookController::class)->only(['index', 'show']);
-Route::resource('questions', QuestionController::class)->only(['index', 'show']);
-
-Route::get('/books/{book}/questions/{question}', [BookQuestionController::class, 'show'])->name('books.questions.show');
+Route::get('questions/{question}', [QuestionController::class, 'show'])->name('questions.show');
 
 /**
  *  マイページ
