@@ -7,6 +7,21 @@ use App\Models\User;
 
 class QuestionPolicy
 {
+    public function viewAny(?User $user): bool
+    {
+        return true;
+    }
+
+    public function view(?User $user, Question $question): bool
+    {
+        return true;
+    }
+
+    public function create(User $user): bool
+    {
+        return true;
+    }
+
     /**
      * Determine whether the user can update the model.
      */

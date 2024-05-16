@@ -14,6 +14,12 @@ use Inertia\Response;
 
 class QuestionController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Question::class);
+    }
+
     public function index(): Response
     {
         return Inertia::render('Question/Index', [
