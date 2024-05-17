@@ -35,13 +35,13 @@ class QuestionController extends Controller
             'book_id' => 'required|exists:books,id',
         ]);
 
-        Question::create([
+        $question = Question::create([
             ...$data,
             'user_id' => auth()->id(),
             'default_order' => Question::getNextOrder(bookId: $data['book_id']),
         ]);
 
-        return redirect()->route('questions.create');
+        return redirect()->route('books.show', $question->book_id);
     }
 
     public function show(Question $question): Response

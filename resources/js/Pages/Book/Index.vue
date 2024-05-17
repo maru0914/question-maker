@@ -25,7 +25,9 @@ const hasMultiplePages = computed(() => props.books.meta.total > props.books.met
         <template #subtitle>好きな問題集を選んで、知識を身につけましょう！</template>
 
         <div v-if="$page.props.auth.user" class="flex justify-end mb-2">
-            <CreateIcon :href="route('books.create')"/>
+            <Link :href="route('books.create')">
+                <CreateIcon />
+            </Link>
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
