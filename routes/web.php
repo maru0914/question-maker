@@ -13,11 +13,11 @@ Route::redirect('/', '/books');
 
 Route::middleware('auth')->group(function () {
     Route::resource('books', BookController::class)->except(['index', 'show']);
-    Route::resource('questions', QuestionController::class)->only(['store', 'edit', 'update', 'destroy']);
+    Route::resource('questions', QuestionController::class)->only(['store', 'update', 'destroy']);
 });
 
 Route::resource('books', BookController::class)->only(['index', 'show']);
-Route::get('questions/{question}', [QuestionController::class, 'show'])->name('questions.show');
+Route::resource('questions', QuestionController::class)->only(['show']);
 
 /**
  *  マイページ
