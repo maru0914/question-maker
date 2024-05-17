@@ -19,14 +19,6 @@ class QuestionController extends Controller
         $this->authorizeResource(Question::class);
     }
 
-    public function create(Request $request): Response
-    {
-        return Inertia::render('Question/Create', [
-            'books' => BookResource::collection($request->user()->books),
-            'selected_book_id' => (int) $request->query('book_id'),
-        ]);
-    }
-
     public function store(Request $request): RedirectResponse
     {
         $data = $request->validate([

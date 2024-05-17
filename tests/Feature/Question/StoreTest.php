@@ -22,7 +22,7 @@ test('問題を登録できる', function () {
 
 test('登録が失敗した場合元のページに戻る', function () {
     $this->actingAs($this->user)
-        ->from('/questions/create')
+        ->from("/books/{$this->requestData['book_id']}")
         ->post('/questions', [])
-        ->assertRedirect('/questions/create');
+        ->assertRedirect("/books/{$this->requestData['book_id']}");
 });
