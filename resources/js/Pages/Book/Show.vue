@@ -1,13 +1,20 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
-import {Head, Link, router} from "@inertiajs/vue3";
+import {Head, Link, router, useForm} from "@inertiajs/vue3";
 import EditIcon from "@/Components/EditIcon.vue";
 import TrashIcon from "@/Components/TrashIcon.vue";
 import SecondaryLInk from "@/Components/SecondaryLInk.vue";
 import SectionHeading from "@/Components/SectionHeading.vue";
 import CreateIcon from "@/Components/CreateIcon.vue";
+import {ref} from "vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import TextArea from "@/Components/TextArea.vue";
+import InputError from "@/Components/InputError.vue";
+import Panel from "@/Components/Panel.vue";
+import CancelButton from "@/Components/CancelButton.vue";
 
-defineProps({
+const props = defineProps({
     book: {
         type: Object,
         required: true
@@ -18,12 +25,32 @@ defineProps({
     }
 });
 
+const form = useForm({
+    book_id: props.book.id,
+    body: '',
+    answer: '',
+});
+
 const deleteBook = (book) => {
     if (!confirm(`「${book.title}」を削除しますか？`)) {
         return;
     }
 
     router.delete(route('books.destroy', book));
+}
+
+const createQuestion = () => {
+    form.post(route('questions.store'), {
+        preserveScroll: true,
+        onSuccess: () => {
+            // ページ最下部へスクロール
+            let elm = document.documentElement;
+            let bottom = elm.scrollHeight - elm.clientHeight;
+            window.scroll(0, bottom);
+        }
+    })
+
+    form.reset()
 }
 
 const deleteQuestion = (question) => {
@@ -34,6 +61,7 @@ const deleteQuestion = (question) => {
     router.delete(route('questions.destroy', question));
 }
 
+const showForm = ref(false);
 
 </script>
 <template>
@@ -68,7 +96,6 @@ const deleteQuestion = (question) => {
                 </SecondaryLInk>
             </section>
 
-
             <section class="space-y-2">
                 <SectionHeading>
                     問題一覧 <span class="text-sm">(全{{ questions.length }}問)</span>
@@ -83,7 +110,6 @@ const deleteQuestion = (question) => {
                                     @click="deleteQuestion(question)">
                                 <TrashIcon/>
                             </button>
-
                             <Link
                                 class="inline-block text-blue-600 py-2"
                                 :href="route('questions.show', question.id)">
@@ -97,8 +123,49 @@ const deleteQuestion = (question) => {
                     問題が登録されるのを待ちましょう！
                 </p>
 
-                <div v-if="book.can.update" class="ml-5">
-                    <CreateIcon :href="route('questions.create', { book_id: book.id })"/>
+                <div v-if="book.can.update" class="inline-block ml-5 cursor-pointer">
+                    <CreateIcon @click="showForm = true" v-if="!showForm"/>
+                </div>
+
+                <div v-if="showForm">
+                    <Panel>
+                        <form @submit.prevent="createQuestion">
+                            <div>
+                                <InputLabel for="body" value="問題文"/>
+                                <TextArea
+                                    id="body"
+                                    type="text"
+                                    class="block mt-1 w-full"
+                                    rows="1"
+                                    v-model="form.body"
+                                    required
+                                    autofocus
+                                />
+                                <InputError class="mt-2" :message="form.errors.body"/>
+                            </div>
+
+                            <div class="mt-4">
+                                <InputLabel for="answer" value="答え"/>
+                                <TextArea
+                                    id="answer"
+                                    type="text"
+                                    class="block mt-1 w-full"
+                                    rows="4"
+                                    v-model="form.answer"
+                                    required
+                                />
+                                <InputError class="mt-2" :message="form.errors.answer"/>
+                            </div>
+                            <div class="mt-4 flex justify-end gap-2">
+                                <CancelButton @click="showForm = false">
+                                    キャンセル
+                                </CancelButton>
+                                <PrimaryButton>
+                                    新しい問題を追加
+                                </PrimaryButton>
+                            </div>
+                        </form>
+                    </Panel>
                 </div>
             </section>
         </div>

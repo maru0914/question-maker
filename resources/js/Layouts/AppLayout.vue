@@ -160,7 +160,7 @@ const showingNavigationDropdown = ref(false);
                 </header>
 
                 <!-- Page Content -->
-                <main class="py-3">
+                <main class="pt-3 pb-10">
                     <slot/>
                 </main>
             </div>
