@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\BookResource;
 use App\Http\Resources\QuestionResource;
 use App\Models\Question;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -57,24 +54,11 @@ class QuestionController extends Controller
         ]);
     }
 
-    public function edit(Request $request, Question $question): Response
-    {
-        return Inertia::render('Question/Edit', [
-            'question' => QuestionResource::make($question->load('book')),
-            'books' => BookResource::collection($request->user()->books),
-        ]);
-    }
-
     public function update(Request $request, Question $question): RedirectResponse
     {
         $question->update($request->validate([
             'body' => 'required',
             'answer' => 'required',
-            'book_id' => [
-                'required',
-                Rule::exists('books', 'id')
-                    ->where(fn (Builder $query) => $query->where('user_id', $request->user()->id)),
-            ],
         ]));
 
         return redirect()->route('questions.show', [$question->id]);
