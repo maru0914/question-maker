@@ -47,10 +47,10 @@ const createQuestion = () => {
             let elm = document.documentElement;
             let bottom = elm.scrollHeight - elm.clientHeight;
             window.scroll(0, bottom);
+
+            form.reset()
         }
     })
-
-    form.reset()
 }
 
 const deleteQuestion = (question) => {
@@ -71,7 +71,9 @@ const showForm = ref(false);
             <section class="relative border border-gray-200 shadow rounded-md bg-white/30">
                 <div v-if="$page.props.auth.user" class="absolute right-0 top-0">
                     <div class="flex">
-                        <EditIcon v-if="book.can.update" :href="route('books.edit', book)"/>
+                        <Link v-if="book.can.update" :href="route('books.edit', book)">
+                            <EditIcon />
+                        </Link>
                         <button v-if="book.can.delete" @click="deleteBook(book)">
                             <TrashIcon route="books.destroy" :id="book.id"/>
                         </button>
@@ -83,7 +85,7 @@ const showForm = ref(false);
                         <img class="max-h-48 mx-auto" :src="'/storage/' + book.image_path" alt="">
                     </div>
                     <div class="sm:col-span-2 p-4">
-                        <p v-html="book.description" class="text-md"></p>
+                        <p v-text="book.description" class="text-md whitespace-pre-line"></p>
                     </div>
                 </div>
             </section>

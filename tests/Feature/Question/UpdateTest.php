@@ -12,7 +12,6 @@ beforeEach(function () {
     $this->requestData = [
         'body' => '１＋１は？',
         'answer' => '田んぼの田',
-        'book_id' => $this->anotherBook->id,
     ];
 });
 
@@ -25,7 +24,7 @@ test('問題を更新できる', function () {
         'id' => $this->question->id,
         'body' => $this->requestData['body'],
         'answer' => $this->requestData['answer'],
-        'book_id' => $this->anotherBook->id,
+        'book_id' => $this->question->book_id,
     ]);
 });
 
@@ -39,7 +38,7 @@ test('他ユーザーが作成した問題は更新できない', function () {
         'id' => $this->question->id,
         'body' => $this->requestData['body'],
         'answer' => $this->requestData['answer'],
-        'book_id' => $this->anotherBook->id,
+        'book_id' => $this->question->book_id,
     ]);
 });
 

@@ -24,7 +24,7 @@ class QuestionResource extends JsonResource
             'book' => BookResource::make($this->whenLoaded('book')),
             'body' => $this->body,
             'default_order' => $this->default_order,
-            'answer' => $request->is('*/edit') ? $this->answer : nl2br(e($this->answer)),
+            'answer' => $this->answer,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'can' => [
