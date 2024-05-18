@@ -2,18 +2,19 @@
 
 ## 環境構築
 
-- Laravel Herdをインストール
+- [Laravel Herd](https://herd.laravel.com/)をインストール
 - `~/Herd`で`git clone`
-- `.env.example`
 
 ```bash
+> cd question-maker
+
 > cp .env.example .env
 
 > composer install
 
 > php artisan key:generate
 
-> php artisan migrate --seed
+> php artisan migrate fresh --seed
 
 > npm install
 ```
@@ -24,9 +25,9 @@
 > npm run dev
 ```
 
-http://question-maker.test/ へGO!
+http://question-maker.test/ へアクセス
 
-## テスト
+## テスト実行
 
 ```bash
 > php artisan test
