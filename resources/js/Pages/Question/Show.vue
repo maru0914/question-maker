@@ -4,8 +4,6 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import {Head, Link, router} from "@inertiajs/vue3";
 import EditIcon from "@/Components/EditIcon.vue";
 import TrashIcon from "@/Components/TrashIcon.vue";
-import PaginationLink from "@/Components/PaginationLink.vue";
-import PaginationSpan from "@/Components/PaginationSpan.vue";
 import QuestionDetail from "@/Components/QuestionDetail.vue";
 import QuestionEditingForm from "@/Components/QuestionEditingForm.vue";
 
@@ -73,20 +71,18 @@ const deleteQuestion = (question) => {
                 </div>
             </section>
 
-            <QuestionDetail v-if="!editing" class="mt-4" :question="question"/>
+            <QuestionDetail v-if="!editing"
+                            class="mt-4"
+                            :question="question"
+                            :previous_link="previous_link"
+                            :next_link="next_link"
+            />
             <QuestionEditingForm v-else
                                  class="mt-4"
                                  :question="question"
                                  @cancel="editing = false"
                                  @updated="editing = false"
             />
-
-            <section v-if="!editing" class="mt-4 flex justify-between">
-                <PaginationLink v-if="previous_link" type="previous" :href="previous_link"/>
-                <PaginationSpan v-else type="previous"/>
-                <PaginationLink v-if="next_link" type="next" :href="next_link"/>
-                <PaginationSpan v-else type="next"/>
-            </section>
         </div>
     </AppLayout>
 </template>

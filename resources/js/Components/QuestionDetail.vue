@@ -2,11 +2,24 @@
 
 import Panel from "@/Components/Panel.vue";
 import {ref} from "vue";
+import StartLinkButton from "@/Components/StartButton.vue";
+import PaginationSpan from "@/Components/PaginationSpan.vue";
+import PaginationLink from "@/Components/PaginationLink.vue";
 
 const props = defineProps({
     question: {
         type: Object,
         required: true
+    },
+    previous_link: {
+        type: String,
+        required: false,
+        default: null
+    },
+    next_link: {
+        type: String,
+        required: false,
+        default: null
     }
 });
 
@@ -23,16 +36,26 @@ const showAnswer = ref(false)
             </Panel>
         </div>
 
-        <div class="mt-4">
-            <div class="flex items-center">
-                <h2 class="font-bold text-xl mr-5">答え</h2>
-                <button @click="showAnswer = !showAnswer" class="bg-white p-1 rounded-xl">表示切替</button>
+        <div class="mt-4" >
+            <div class="text-center">
+                <StartLinkButton v-if="!showAnswer" @click="showAnswer = !showAnswer">答えを見る</StartLinkButton>
             </div>
 
             <Transition>
-                <Panel class="mt-3 whitespace-pre-line" v-if="showAnswer" v-text="question.answer"></Panel>
+                <div v-if="showAnswer">
+                    <h2 class="font-bold text-xl mr-5">答え</h2>
+
+                    <Panel class="mt-3 whitespace-pre-line"  v-text="question.answer"></Panel>
+                </div>
             </Transition>
         </div>
+    </section>
+
+    <section v-if="showAnswer" class="mt-4 flex justify-between">
+        <PaginationLink v-if="previous_link" type="previous" :href="previous_link"/>
+        <PaginationSpan v-else type="previous"/>
+        <PaginationLink v-if="next_link" type="next" :href="next_link"/>
+        <PaginationSpan v-else type="next"/>
     </section>
 </template>
 
