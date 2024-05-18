@@ -44,7 +44,7 @@ test('他ユーザーが作成した問題は更新できない', function () {
 
 test('更新が失敗した場合元のページに戻る', function () {
     $this->actingAs($this->user)
-        ->from("/questions/{$this->question->id}/edit")
+        ->from("/questions/{$this->question->id}")
         ->patch("/questions/{$this->question->id}", [])
-        ->assertRedirect("/questions/{$this->question->id}/edit");
+        ->assertRedirect("/questions/{$this->question->id}");
 });
