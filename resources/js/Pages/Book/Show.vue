@@ -3,7 +3,6 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import {Head, Link, router, useForm} from "@inertiajs/vue3";
 import EditIcon from "@/Components/EditIcon.vue";
 import TrashIcon from "@/Components/TrashIcon.vue";
-import SecondaryLInk from "@/Components/SecondaryLInk.vue";
 import SectionHeading from "@/Components/SectionHeading.vue";
 import CreateIcon from "@/Components/CreateIcon.vue";
 import {ref} from "vue";
@@ -13,6 +12,7 @@ import TextArea from "@/Components/TextArea.vue";
 import InputError from "@/Components/InputError.vue";
 import Panel from "@/Components/Panel.vue";
 import CancelButton from "@/Components/CancelButton.vue";
+import StartLinkButton from "@/Components/StartLinkButton.vue";
 
 const props = defineProps({
     book: {
@@ -90,12 +90,13 @@ const showForm = ref(false);
                 </div>
             </section>
 
-            <section>
-                <SecondaryLInk v-if="questions.length !==0"
+            <section class="text-center">
+                <StartLinkButton v-if="questions.length !==0"
                                :href="route('questions.show', [questions[0]])"
+                               class="text-xl"
                 >
                     問題集を始める
-                </SecondaryLInk>
+                </StartLinkButton>
             </section>
 
             <section class="space-y-2">
