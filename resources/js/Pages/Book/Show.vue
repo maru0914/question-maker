@@ -12,7 +12,7 @@ import TextArea from "@/Components/TextArea.vue";
 import InputError from "@/Components/InputError.vue";
 import Panel from "@/Components/Panel.vue";
 import CancelButton from "@/Components/CancelButton.vue";
-import StartLinkButton from "@/Components/StartLinkButton.vue";
+import StartButton from "@/Components/StartButton.vue";
 
 const props = defineProps({
     book: {
@@ -73,7 +73,7 @@ const showForm = ref(false);
                 <div v-if="$page.props.auth.user" class="absolute right-0 top-0">
                     <div class="flex">
                         <Link v-if="book.can.update" :href="route('books.edit', book)">
-                            <EditIcon />
+                            <EditIcon/>
                         </Link>
                         <button v-if="book.can.delete" @click="deleteBook(book)">
                             <TrashIcon route="books.destroy" :id="book.id"/>
@@ -91,13 +91,13 @@ const showForm = ref(false);
                 </div>
             </section>
 
-            <section class="text-center">
-                <StartLinkButton v-if="questions.length !==0"
-                               :href="route('questions.show', [questions[0]])"
-                               class="text-xl"
-                >
-                    問題集を始める
-                </StartLinkButton>
+            <section v-if="questions.length !==0" class="text-center">
+                <Link :href="route('questions.show', [questions[0]])">
+                    <StartButton class="text-xl">
+                        問題集を始める
+                    </StartButton>
+                </Link>
+
             </section>
 
             <section class="space-y-2">
