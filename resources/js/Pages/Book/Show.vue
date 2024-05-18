@@ -67,6 +67,7 @@ const showForm = ref(false);
 <template>
     <Head :title="book.title"/>
     <AppLayout>
+        <template #header>{{ book.title }}</template>
         <div class="space-y-6">
             <section class="relative border border-gray-200 shadow rounded-md bg-white/30">
                 <div v-if="$page.props.auth.user" class="absolute right-0 top-0">
