@@ -7,7 +7,7 @@ use App\Models\User;
 beforeEach(function () {
     $this->user = User::factory()->create();
     $this->book = Book::factory()->for($this->user)->create();
-    $this->question = Question::factory()->for($this->user)->for($this->book)->create();
+    $this->question = Question::factory()->for($this->book)->create();
     $this->anotherBook = Book::factory()->for($this->user)->create();
     $this->requestData = [
         'body' => '１＋１は？',

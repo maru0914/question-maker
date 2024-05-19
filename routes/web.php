@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +19,8 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('books', BookController::class)->only(['index', 'show']);
 Route::resource('questions', QuestionController::class)->only(['show']);
+
+Route::resource('books.challenges', ChallengeController::class)->shallow()->only(['store']);
 
 /**
  *  マイページ

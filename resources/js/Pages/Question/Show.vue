@@ -74,6 +74,7 @@ const deleteQuestion = (question) => {
             <QuestionDetail v-if="!editing"
                             class="mt-4"
                             :question="question"
+                            :questions_count="questions_count"
                             :previous_link="previous_link"
                             :next_link="next_link"
             />

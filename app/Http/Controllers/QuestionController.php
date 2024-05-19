@@ -26,7 +26,6 @@ class QuestionController extends Controller
 
         $question = Question::create([
             ...$data,
-            'user_id' => auth()->id(),
             'default_order' => Question::getNextOrder(bookId: $data['book_id']),
         ]);
 

@@ -22,7 +22,11 @@ const hasMultiplePages = computed(() => props.books.meta.total > props.books.met
     <Head title="問題集一覧"/>
     <AppLayout>
         <template #header>問題集一覧</template>
-        <template #subtitle>好きな問題集を選んで、知識を身につけましょう！</template>
+        <template #subtitle>好きな問題集を選んで、知識を身につけましょう！
+            <p v-if="!$page.props.auth.user" class="mt-2 text-sm">
+                ※<Link class="text-indigo-500" :href="route('login')">ログイン</Link>すると問題集の作成や解いた問題の正誤を記録できます!
+            </p>
+        </template>
 
         <div v-if="$page.props.auth.user" class="flex justify-end mb-2">
             <Link :href="route('books.create')">

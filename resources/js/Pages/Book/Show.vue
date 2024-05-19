@@ -12,7 +12,8 @@ import TextArea from "@/Components/TextArea.vue";
 import InputError from "@/Components/InputError.vue";
 import Panel from "@/Components/Panel.vue";
 import CancelButton from "@/Components/CancelButton.vue";
-import StartButton from "@/Components/StartButton.vue";
+import LargeButton from "@/Components/LargeButton.vue";
+import {formatDatetime} from "@/Utilities/date.js";
 
 const props = defineProps({
     book: {
@@ -37,6 +38,28 @@ const deleteBook = (book) => {
     }
 
     router.delete(route('books.destroy', book));
+}
+
+const showResult = (challenge) => {
+    if (challenge === null) {
+        return '-'
+    }
+    if (challenge.is_success) {
+        return '✅'
+    }
+    return '❌'
+}
+
+const showDatetime = (challenge) => {
+    if (challenge === null) {
+        return '-'
+    }
+    return formatDatetime(challenge.created_at)
+}
+
+const startBook = () => {
+    localStorage.removeItem(`books.${props.book.id}.results`);
+    router.get(route('questions.show', [props.questions[0]]))
 }
 
 const createQuestion = () => {
@@ -92,11 +115,16 @@ const showForm = ref(false);
             </section>
 
             <section v-if="questions.length !==0" class="text-center">
-                <Link :href="route('questions.show', [questions[0]])">
-                    <StartButton class="text-xl">
+                <span @click="startBook" :href="route('questions.show', [questions[0]])">
+                    <LargeButton class="text-xl">
                         問題集を始める
-                    </StartButton>
-                </Link>
+                    </LargeButton>
+                </span>
+                <p v-if="!$page.props.auth.user" class="mt-2 text-sm">
+                    ※
+                    <Link class="text-indigo-500" :href="route('login')">ログイン</Link>
+                    すると問題の正誤を記録できます。
+                </p>
 
             </section>
 
@@ -105,22 +133,45 @@ const showForm = ref(false);
                     問題一覧 <span class="text-sm">(全{{ questions.length }}問)</span>
                 </SectionHeading>
 
-                <div v-if="questions.length !==0"
-                     class="bg-white shadow rounded-lg pl-5 sm:pl-6">
-                    <ul role="list" class="divide-y divide-gray-100">
-                        <li v-for="question in questions" :key="question.id" class="relative">
-                            <button v-if="question.can.delete"
-                                    class="absolute right-0"
-                                    @click="deleteQuestion(question)">
-                                <TrashIcon/>
-                            </button>
-                            <Link
-                                class="inline-block text-blue-600 py-2"
-                                :href="route('questions.show', question.id)">
-                                {{ question.body }}
-                            </Link>
-                        </li>
-                    </ul>
+                <div v-if="questions.length !==0" class="relative shadow-md sm:rounded-lg">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 border border-gray-100">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                問題文
+                            </th>
+                            <th v-if="$page.props.auth.user" scope="col" class="px-6 py-3">
+                                前回結果
+                            </th>
+                            <th v-if="$page.props.auth.user" scope="col" class="px-6 py-3">
+                                前回チャレンジ
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="question in questions" :key="question.id"
+                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <td class="px-6 py-4">
+                                <Link
+                                    class="inline-block text-blue-600 py-2"
+                                    :href="route('questions.show', question.id)">
+                                    {{ question.body }}
+                                </Link>
+                            </td>
+                            <td v-if="$page.props.auth.user" class="px-6 py-4">
+                                {{ showResult(question.latest_challenge) }}
+                            </td>
+                            <td v-if="$page.props.auth.user" class="px-6 py-4 relative">
+                                {{ showDatetime(question.latest_challenge) }}
+                                <button v-if="question.can.delete"
+                                        class="absolute right-1 top-0"
+                                        @click="deleteQuestion(question)">
+                                    <TrashIcon/>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <p v-if="questions.length === 0 && !book.can.update">
                     この問題集にはまだ問題が登録されていません！<br>

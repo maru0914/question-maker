@@ -6,13 +6,15 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Question extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
         'book_id',
         'body',
         'answer',
@@ -24,9 +26,24 @@ class Question extends Model
         return $this->belongsTo(Book::class);
     }
 
-    public function user(): BelongsTo
+    public function latestChallenge(): HasOne
     {
-        return $this->belongsTo(User::class);
+        return $this->hasOne(Challenge::class)->latestOfMany();
+    }
+
+    public function challenges(): HasMany
+    {
+        return $this->hasMany(Challenge::class);
+    }
+
+    /**
+     * 問題に挑戦したユーザー
+     */
+    public function challengers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'challenges')
+            ->using(Challenge::class)
+            ->distinct();
     }
 
     /**

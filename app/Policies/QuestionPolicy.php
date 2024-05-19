@@ -19,11 +19,11 @@ class QuestionPolicy
 
     public function update(User $user, Question $question): bool
     {
-        return $user->id === $question->user_id;
+        return $user->id === $question->book->user_id;
     }
 
     public function delete(User $user, Question $question): bool
     {
-        return $user->id === $question->user_id;
+        return $user->id === $question->book->user_id;
     }
 }
