@@ -1,11 +1,15 @@
 <?php
 
+use App\Models\Book;
 use App\Models\Question;
 use App\Models\User;
 
 beforeEach(function () {
     $this->user = User::factory()->create();
-    $this->question = Question::factory()->for($this->user)->create();
+    $this->question = Question::factory()
+        ->for(Book::factory()
+            ->for($this->user)
+        )->create();
 });
 
 test('問題を削除できる', function () {
