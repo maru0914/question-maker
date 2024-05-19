@@ -144,7 +144,7 @@ const showForm = ref(false);
                                 前回結果
                             </th>
                             <th v-if="$page.props.auth.user" scope="col" class="px-6 py-3">
-                                前回チャレンジ
+                                前回日時
                             </th>
                         </tr>
                         </thead>
