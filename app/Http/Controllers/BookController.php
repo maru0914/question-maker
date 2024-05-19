@@ -57,9 +57,11 @@ class BookController extends Controller
 
     public function show(Book $book): Response
     {
-        $book->load(['questions' => function (HasMany $query) {
-            $query->orderBy('default_order');
-        }]);
+        $book->load([
+            'questions.latestChallenge',
+            'questions' => function (HasMany $query) {
+                $query->orderBy('default_order');
+            }]);
 
         return Inertia::render('Book/Show', [
             'book' => BookResource::make($book),

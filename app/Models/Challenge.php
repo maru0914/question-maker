@@ -14,6 +14,13 @@ class Challenge extends Pivot
 
     public $incrementing = true;
 
+    protected function casts()
+    {
+        return [
+            'is_success' => 'boolean',
+        ];
+    }
+
     public function question(): BelongsTo
     {
         return $this->belongsTo(Question::class);

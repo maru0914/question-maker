@@ -25,6 +25,7 @@ class QuestionResource extends JsonResource
             'body' => $this->body,
             'default_order' => $this->default_order,
             'answer' => $this->answer,
+            'latest_challenge' => ChallengeResource::make($this->whenLoaded('latestChallenge')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'can' => [
