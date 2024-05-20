@@ -135,7 +135,7 @@ const showForm = ref(false);
 
                 <div v-if="questions.length !==0" class="relative shadow-md sm:rounded-lg">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 border border-gray-100">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                         <tr>
                             <th scope="col" class="px-6 py-3">
                                 問題文
@@ -150,7 +150,7 @@ const showForm = ref(false);
                         </thead>
                         <tbody>
                         <tr v-for="question in questions" :key="question.id"
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            class="bg-white border-b hover:bg-gray-50">
                             <td class="px-6 py-4">
                                 <Link
                                     class="inline-block text-blue-600 py-2"
