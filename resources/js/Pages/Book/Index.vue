@@ -35,7 +35,7 @@ const hasMultiplePages = computed(() => props.books.meta.total > props.books.met
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <Panel v-for="book in books.data" :key="book.id" class="relative hover:scale-[1.01] hover:shadow-lg">
+            <Panel v-for="book in books.data" :key="book.id" class="relative hover:scale-[1.01] hover:shadow-lg duration-300">
                 <Link :href="route('books.show', book.id)" class="absolute inset-0"></Link>
                 <div class="flex flex-col w-full h-full">
                     <div class="flex items-center my-auto">
