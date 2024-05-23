@@ -6,20 +6,21 @@
 
 問題集・問題の作成や問題へのチャレンジができるWebアプリケーション
 
+## 機能例
 
-### 問題集一覧
+### 作成された問題集の確認
 
-<img src="https://github.com/maru0914/question-maker/assets/56859729/b0017bb3-0a81-480d-a041-59823c154678" width=500px>
-
-
-### 問題へチャレンジ
-
-<img src="https://github.com/maru0914/question-maker/assets/56859729/0b57b587-db5a-450c-bb68-bcfa6fe6d0e1" width=500px>
+<img src="https://github.com/maru0914/question-maker/assets/56859729/b0017bb3-0a81-480d-a041-59823c154678" width=600px>
 
 
-### チャレンジ結果の確認
+### 問題集へチャレンジ
 
-<img src="https://github.com/maru0914/question-maker/assets/56859729/3197cde8-0fe3-4702-9daf-e6c0d36126ee" width=500px>
+<img src="https://github.com/maru0914/question-maker/assets/56859729/0b57b587-db5a-450c-bb68-bcfa6fe6d0e1" width=600px>
+
+
+### チャレンジ結果の管理
+
+<img src="https://github.com/maru0914/question-maker/assets/56859729/3197cde8-0fe3-4702-9daf-e6c0d36126ee" width=600px>
 
 
 ## 公開URL
@@ -33,7 +34,7 @@ https://question-maker.net
 - CSSフレームワーク: [Tailwind CSS](https://tailwindcss.com/)
 - PHPテストフレームワーク: [Pest](https://pestphp.com/)
 - フロントビルド: [Vite](https://ja.vitejs.dev/)
-- CI/CD: GitHub Actions
+- CI/CD: [GitHub Actions](https://docs.github.com/ja/actions)
 
 
 ## 開発環境構築
