@@ -5,7 +5,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import {Head, Link, useForm} from '@inertiajs/vue3';
 
 defineProps({
     canResetPassword: {
@@ -17,8 +17,8 @@ defineProps({
 });
 
 const form = useForm({
-    email: '',
-    password: '',
+    email: 'test@example.com',
+    password: 'password',
     remember: false,
 });
 
@@ -75,6 +75,11 @@ const submit = () => {
                     <span class="ms-2 text-sm text-gray-600">このブラウザに認証情報を記憶</span>
                 </label>
             </div>
+            <div class="mt-3 text-sm text-gray-600">
+                <p>テストユーザー(test@example.com)でログインして会員限定機能を試せます！</p>
+                <p>※テストユーザーのデータは毎日リセットされます</p>
+            </div>
+
 
             <div class="flex items-center justify-end mt-4">
                 <Link
