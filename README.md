@@ -1,7 +1,13 @@
 ![ci](https://github.com/maru0914/question-maker/actions/workflows/laravel.yml/badge.svg)
 
+
+# アプリケーション概要
+
+問題集・問題の作成や問題へのチャレンジができるWebアプリケーション
+
+
 ## 公開URL
-https://question-maker.net/books
+https://question-maker.net
 
 ## 技術スタック
 
@@ -13,7 +19,7 @@ https://question-maker.net/books
 - フロントビルド: [Vite](https://ja.vitejs.dev/)
 
 
-## 環境構築
+## 開発環境構築
 
 - [Laravel Herd](https://herd.laravel.com/)をインストール
 - `~/Herd`で`git clone`
@@ -30,17 +36,11 @@ https://question-maker.net/books
 > php artisan migrate fresh --seed // プロンプトでデータベースの作成を選択
 
 > npm install
+
+> npm run dev // 初回構築時に限らず、開発時は常に実行しておく
 ```
 
-## Vite起動
-
-フロントビルドのため、以下コマンドを実行しておく。
-
-```bash
-> npm run dev
-```
-
-http://question-maker.test/ へアクセス
+http://question-maker.test/ へアクセスして問題集ページが表示されればOK
 
 ## テスト実行
 
