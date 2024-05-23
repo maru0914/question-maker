@@ -19,6 +19,11 @@ class DatabaseSeeder extends Seeder
     {
         Storage::delete(Storage::files('public/images'));
 
+        $testUser = User::factory()->create([
+            'username' => 'testuser1234',
+            'email' => 'test@example.com',
+        ]);
+
         $users = User::factory(10)->create();
 
         $books = Book::factory(21)
@@ -42,11 +47,6 @@ class DatabaseSeeder extends Seeder
                 ->recycle($users)
                 ->create();
         }
-
-        $testUser = User::factory()->create([
-            'username' => 'testuser1234',
-            'email' => 'test@example.com',
-        ]);
 
         $testBook = Book::factory()
             ->withImage()
