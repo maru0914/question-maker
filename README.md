@@ -9,17 +9,17 @@
 
 ### 問題集一覧
 
-![image](https://github.com/maru0914/question-maker/assets/56859729/b0017bb3-0a81-480d-a041-59823c154678)
+<img src="https://github.com/maru0914/question-maker/assets/56859729/b0017bb3-0a81-480d-a041-59823c154678" width=500px>
 
 
 ### 問題へチャレンジ
 
-![image](https://github.com/maru0914/question-maker/assets/56859729/0b57b587-db5a-450c-bb68-bcfa6fe6d0e1)
+<img src="https://github.com/maru0914/question-maker/assets/56859729/0b57b587-db5a-450c-bb68-bcfa6fe6d0e1" width=500px>
 
 
 ### チャレンジ結果の確認
 
-![image](https://github.com/maru0914/question-maker/assets/56859729/3197cde8-0fe3-4702-9daf-e6c0d36126ee)
+<img src="https://github.com/maru0914/question-maker/assets/56859729/3197cde8-0fe3-4702-9daf-e6c0d36126ee" width=500px>
 
 
 ## 公開URL
@@ -33,6 +33,7 @@ https://question-maker.net
 - CSSフレームワーク: [Tailwind CSS](https://tailwindcss.com/)
 - PHPテストフレームワーク: [Pest](https://pestphp.com/)
 - フロントビルド: [Vite](https://ja.vitejs.dev/)
+- CI/CD: GitHub Actions
 
 
 ## 開発環境構築
