@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Exceptions\StorageException;
 use App\Models\Book;
 use App\Models\Question;
+use App\Services\ImageService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -15,6 +17,11 @@ class ResetTestUserBooks extends Command
     protected $signature = 'reset:test-user-books';
 
     protected $description = "reset test user's books except default book.";
+
+    public function __construct(protected ImageService $imageService)
+    {
+        parent::__construct();
+    }
 
     public function handle(): void
     {
@@ -28,6 +35,9 @@ class ResetTestUserBooks extends Command
         Log::info("[END] reset test user's books.");
     }
 
+    /**
+     * @throws StorageException
+     */
     protected function deleteBooks(): void
     {
         $targetBooks = Book::query()
@@ -36,6 +46,9 @@ class ResetTestUserBooks extends Command
 
         foreach ($targetBooks as $targetBook) {
             $targetBook->questions()->delete();
+            if ($targetBook->image_path) {
+                $this->imageService->delete($targetBook->image_path);
+            }
             $result = $targetBook->delete();
             if ($result) {
                 Log::info("Deleted book_id: $targetBook->id");
