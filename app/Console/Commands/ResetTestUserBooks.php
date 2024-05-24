@@ -7,8 +7,10 @@ use App\Models\Book;
 use App\Models\Question;
 use App\Services\ImageService;
 use Illuminate\Console\Command;
+use Illuminate\Http\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class ResetTestUserBooks extends Command
 {
@@ -58,32 +60,35 @@ class ResetTestUserBooks extends Command
 
     protected function createDefaultBooks(): void
     {
-        Book::factory()
-            ->withImage('stub/php-logo.png')
-            ->has(
-                Question::factory(3)
-                    ->sequence(
-                        [
-                            'body' => 'PHPがリリースされた年は？',
-                            'answer' => '1995年です。',
-                            'default_order' => 1,
-                        ],
-                        [
-                            'body' => 'Laravelがリリースされた年は？',
-                            'answer' => '2011年です。',
-                            'default_order' => 2,
-                        ],
-                        [
-                            'body' => 'Symphonyがリリースされた年は？',
-                            'answer' => '2005年です。',
-                            'default_order' => 3,
-                        ],
-                    )
-            )
-            ->create([
-                'user_id' => self::TEST_USER_ID,
-                'title' => 'PHP雑学',
-                'description' => 'PHPに関連する雑学についての問題集です。',
-            ]);
+        $stubFile = new File(Storage::disk('local')->path('stub/php-logo.png'));
+        $filePath = Storage::disk('public')->putFile('images', $stubFile);
+
+        $book = Book::create([
+            'user_id' => self::TEST_USER_ID,
+            'title' => 'PHP雑学',
+            'description' => 'PHPに関連する雑学についての問題集です。',
+            'image_path' => $filePath,
+        ]);
+
+        Question::insert([
+            [
+                'book_id' => $book->id,
+                'body' => 'PHPがリリースされた年は？',
+                'answer' => '1995年です。',
+                'default_order' => 1,
+            ],
+            [
+                'book_id' => $book->id,
+                'body' => 'Laravelがリリースされた年は？',
+                'answer' => '2011年です。',
+                'default_order' => 2,
+            ],
+            [
+                'book_id' => $book->id,
+                'body' => 'Symphonyがリリースされた年は？',
+                'answer' => '2005年です。',
+                'default_order' => 3,
+            ],
+        ]);
     }
 }
