@@ -39,8 +39,12 @@ https://question-maker.net
 
 ## 開発環境構築
 
+現状以下の手順での構築を行っている。(Docker環境構築予定)
+
 - [Laravel Herd](https://herd.laravel.com/)をインストール
 - `~/Herd`で`git clone`
+- [DBngin](https://dbngin.com/)などでMySQL8系をインストールし、ポート3306で起動しておく
+
 
 ```bash
 > cd question-maker
