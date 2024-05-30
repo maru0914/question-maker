@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
         // 新規テーブルの作成
         Schema::create('temp_questions', function (Blueprint $table) {
             $table->id();
@@ -40,10 +41,14 @@ return new class extends Migration
         Schema::table('questions', function (Blueprint $table) {
             $table->unique(['book_id', 'default_order']);
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints();
+
         Schema::create('temp_questions', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained();
@@ -77,5 +82,7 @@ return new class extends Migration
         Schema::table('questions', function (Blueprint $table) {
             $table->unique(['book_id', 'default_order']);
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 };
