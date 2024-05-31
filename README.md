@@ -40,6 +40,22 @@ https://question-maker.net
 ## 開発環境構築
 
 [Laravel Sail](https://laravel.com/docs/11.x/sail#main-content)を使った環境構築を想定しています。
+PCはMacを想定していますが、Windowsでも構築可能です。
+適宜読み替えて構築してください。
+
+### 1. Docker Desktopの準備
+
+[Docker Desktop](https://www.docker.com/ja-jp/products/docker-desktop/)をインストールして起動しておく
+
+### 2. sailコマンドのエイリアス設定
+
+`~/.bashrc`や`~/.zshrc`に以下のように`alias`登録しておく
+
+```bash
+alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
+```
+
+### 3. プロジェクトの作成
 
 ターミナルで以下コマンドを順に実行
 
@@ -47,10 +63,10 @@ https://question-maker.net
 > git clone git@github.com:maru0914/question-maker.git
 > cd question-maker
 > bash sail-install.sh
-> sail up -d
 > cp .env.example .env
+> sail up -d
 > sail artisan key:generate
-> sail artisan migrate fresh --seed
+> sail artisan migrate:fresh --seed
 > sail artisan storage:link 
 > sail npm install
 > sail npm run dev 
