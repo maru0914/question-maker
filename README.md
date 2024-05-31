@@ -40,7 +40,7 @@ https://question-maker.net
 ## 開発環境構築
 
 [Laravel Sail](https://laravel.com/docs/11.x/sail#main-content)を使った環境構築を想定しています。
-PCはMacを想定していますが、Windowsでも構築可能です。
+OSはMacを想定していますが、Windowsでも構築可能です。
 適宜読み替えて構築してください。
 
 ### 1. Docker Desktopの準備
