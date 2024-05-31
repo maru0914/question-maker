@@ -40,7 +40,6 @@ it('問題集に紐づく問題も削除される', function () {
     $this->artisan('reset:test-user-books');
 
     $this->assertDatabaseMissing('questions', [
-        'user_id' => $this->testUser->id,
         'book_id' => $book->id,
     ]);
 });

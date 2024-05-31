@@ -22,7 +22,7 @@ class BookFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'title' => fake()->sentence(),
+            'title' => fake()->realtext(20),
             'description' => fake()->realText(300),
             'image_path' => null,
         ];

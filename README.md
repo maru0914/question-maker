@@ -39,33 +39,27 @@ https://question-maker.net
 
 ## 開発環境構築
 
-現状以下の手順での構築を行っている。(Docker環境構築予定)
+[Laravel Sail](https://laravel.com/docs/11.x/sail#main-content)を使った環境構築を想定しています。
 
-- [Laravel Herd](https://herd.laravel.com/)をインストール
-- `~/Herd`で`git clone`
-- [DBngin](https://dbngin.com/)などでMySQL8系をインストールし、ポート3306で起動しておく
-
+ターミナルで以下コマンドを順に実行
 
 ```bash
+> git clone git@github.com:maru0914/question-maker.git
 > cd question-maker
-
+> bash sail-install.sh
+> sail up -d
 > cp .env.example .env
-
-> composer install
-
-> php artisan key:generate
-
-> php artisan migrate fresh --seed // プロンプトでデータベースの作成を選択
-
-> npm install
-
-> npm run dev // 初回構築時に限らず、開発時は常に実行しておく
+> sail artisan key:generate
+> sail artisan migrate fresh --seed
+> sail artisan storage:link 
+> sail npm install
+> sail npm run dev 
 ```
 
-http://question-maker.test へアクセスして問題集ページが表示されればOK
+http://localhost へアクセスして問題集ページが表示されればOK
 
 ## テスト実行
 
 ```bash
-> php artisan test
+> sail artisan test
 ```
