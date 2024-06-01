@@ -44,8 +44,6 @@ const selectNewImage = () => {
 };
 
 const submit = () => {
-
-
     if (imageInput.value) {
         form.image = imageInput.value.files[0];
     }
@@ -84,7 +82,6 @@ const submit = () => {
                     rows="4"
                     v-model="form.description"
                     required
-                    autofocus
                 />
 
                 <InputError class="mt-2" :message="form.errors.description"/>
@@ -95,6 +92,7 @@ const submit = () => {
                     ref="imageInput"
                     type="file"
                     class="hidden"
+                    accept="image/*"
                     @change="updateImagePreview"
                 >
 
