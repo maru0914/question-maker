@@ -1,11 +1,11 @@
 <script setup>
-import {ref} from 'vue';
+import { ref } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import {Link} from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -13,7 +13,7 @@ const showingNavigationDropdown = ref(false);
 <template>
     <div>
         <div class="min-h-screen bg-gray-50">
-            <nav class="bg-white border-b border-gray-100">
+            <nav class="bg-white border-b border-gray-100 shadow-sm">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
@@ -29,7 +29,7 @@ const showingNavigationDropdown = ref(false);
 
                             <!-- Navigation Links -->
                             <div class="hidden sm:flex justify-between sm:flex-1">
-                                <div class="flex flex-1 space-x-8 sm:-my-px sm:ms-10">
+                                <div class="flex flex-1 space-x-8 sm:-my-px sm:ml-10">
                                     <NavLink :href="route('books.index')" :active="route().current('books.index')">
                                         問題集
                                     </NavLink>
@@ -39,7 +39,7 @@ const showingNavigationDropdown = ref(false);
                                         問題集作成
                                     </NavLink>
                                 </div>
-                                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                     <Dropdown class="self-center" v-if="$page.props.auth.user" align="right" width="48">
                                         <template #trigger>
                                         <span class="inline-flex rounded-md">
@@ -50,7 +50,7 @@ const showingNavigationDropdown = ref(false);
                                                 {{ $page.props.auth.user.username }}
 
                                                 <svg
-                                                    class="ms-2 -me-0.5 h-4 w-4"
+                                                    class="ml-2 -mr-0.5 h-4 w-4"
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 20 20"
                                                     fill="currentColor"
@@ -81,7 +81,7 @@ const showingNavigationDropdown = ref(false);
                         </div>
 
                         <!-- Hamburger -->
-                        <div class="-me-2 flex items-center sm:hidden">
+                        <div class="-mr-2 flex items-center sm:hidden">
                             <button
                                 @click="showingNavigationDropdown = !showingNavigationDropdown"
                                 class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"

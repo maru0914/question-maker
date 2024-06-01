@@ -35,14 +35,14 @@ const hasMultiplePages = computed(() => props.books.meta.total > props.books.met
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <Panel v-for="book in books.data" :key="book.id" class="relative hover:scale-[1.01] hover:shadow-lg duration-300">
+            <Panel v-for="book in books.data" :key="book.id" class="relative border border-gray-200 rounded-lg hover:scale-105 hover:shadow-lg transition-transform duration-300 ease-in-out">
                 <Link :href="route('books.show', book.id)" class="absolute inset-0"></Link>
-                <div class="flex flex-col w-full h-full">
-                    <div class="flex items-center my-auto">
-                        <img class="max-h-40 mx-auto " :src="'/storage/' + book.image_path" alt="">
+                <div class="flex flex-col w-full h-full p-4">
+                    <div class="flex items-center justify-center mb-4">
+                        <img class="max-h-40" :src="'/storage/' + book.image_path" alt="">
                     </div>
-                    <h2 class="mt-auto text-lg text-center">{{ book.title }}</h2>
-                    <div class="text-black/30 text-xs text-end -mr-2">
+                    <h2 class="text-lg text-center mb-2">{{ book.title }}</h2>
+                    <div class="text-gray-500 text-xs text-right">
                         by {{ book.user.username }}
                     </div>
                 </div>
