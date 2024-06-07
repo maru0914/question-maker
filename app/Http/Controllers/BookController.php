@@ -81,7 +81,6 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book): RedirectResponse
     {
-        ray($request);
         $data = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
