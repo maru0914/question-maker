@@ -1,9 +1,11 @@
-name: EC2 auto deploy
+name: Deploy
 
 on:
-  pull_request:
-    branches: [ main ]
-    types: [ closed ]
+  workflow_run:
+    workflows:
+      - Laravel Pint
+    types:
+      - completed
   workflow_dispatch:
 
 jobs:
