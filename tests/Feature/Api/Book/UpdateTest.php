@@ -31,7 +31,7 @@ test('画像を更新できる', function () {
     $this->actingAs($this->user)
         ->patch("/books/{$book->id}", [
             ...$this->requestData,
-            'image' => UploadedFile::fake()->image('test.jpg')
+            'image' => UploadedFile::fake()->image('test.jpg'),
         ])
         ->assertRedirect('/books');
 

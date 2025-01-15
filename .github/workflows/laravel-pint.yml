@@ -1,9 +1,7 @@
 name: Laravel Pint
 
 on:
-  push:
-    branches:
-      - main
+  pull_request
 
 jobs:
   laravel-pint:
@@ -25,12 +23,4 @@ jobs:
         run: composer global require laravel/pint
 
       - name: Run Pint
-        run: pint
-
-      - name: Push Changes to Back to Repo
-        run: |
-          git config user.name "gh-actions"
-          git config user.email "gh@actions.com"
-          git add .
-          git commit -m "Laravel Pint" || exit 0
-          git push
+        run: pint --test

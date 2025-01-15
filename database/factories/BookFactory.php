@@ -40,6 +40,4 @@ class BookFactory extends Factory
             'image_path' => $filePath,
         ]);
     }
-
-
 }
