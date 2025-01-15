@@ -14,7 +14,7 @@ jobs:
           - 3306:3306
         env:
           MARIADB_DATABASE: question_maker
-          MARIADB_ALLOW_EMPTY_PASSWORD: yes
+          MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: yes
 
     steps:
       - name: Checkout Code
