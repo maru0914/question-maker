@@ -14,7 +14,7 @@ test('問題集を登録できる', function () {
     $requestData = [
         'title' => '問題集のタイトル',
         'description' => '問題集の説明文',
-        'image' => UploadedFile::fake()->image('test.jpg')
+        'image' => UploadedFile::fake()->image('test.jpg'),
     ];
 
     $this->actingAs($this->user)

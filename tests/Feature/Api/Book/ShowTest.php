@@ -19,4 +19,3 @@ test('idが存在しない場合、404を返す', function () {
     $this->get("/books/{$nonExistingId}")
         ->assertNotFound();
 });
-
