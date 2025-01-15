@@ -13,7 +13,7 @@ jobs:
         ports:
           - 3306:3306
         env:
-          MARIADB_DATABASE: question_maker
+          MARIADB_DATABASE: testing
           MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: yes
 
     steps:
