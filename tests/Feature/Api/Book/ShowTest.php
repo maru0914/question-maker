@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Http\Resources\BookResource;
 use App\Models\Book;
+
+covers(BookController::class);
 
 beforeEach(function () {
     $this->book = Book::factory()->create();
