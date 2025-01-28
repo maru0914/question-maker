@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Models\User;
+
+covers(BookController::class);
 
 test('/books/createページが表示できる', function () {
 

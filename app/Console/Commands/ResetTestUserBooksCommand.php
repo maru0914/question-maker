@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
-class ResetTestUserBooks extends Command
+class ResetTestUserBooksCommand extends Command
 {
     public const TEST_USER_ID = 1;
 

@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Http\Resources\BookResource;
 use App\Models\Book;
+
+covers(BookController::class);
 
 test('問題集が登録されていない場合リストが表示されない', function () {
     $this->get('/books')

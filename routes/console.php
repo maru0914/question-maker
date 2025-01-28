@@ -1,6 +1,6 @@
 <?php
 
-use App\Console\Commands\ResetTestUserBooks;
+use App\Console\Commands\ResetTestUserBooksCommand;
 use Illuminate\Support\Facades\Schedule;
 
-Schedule::command(ResetTestUserBooks::class)->daily();
+Schedule::command(ResetTestUserBooksCommand::class)->daily();

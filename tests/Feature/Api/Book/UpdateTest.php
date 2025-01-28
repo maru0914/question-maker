@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Models\Book;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
+
+covers(BookController::class);
 
 beforeEach(function () {
     $this->user = User::factory()->create();

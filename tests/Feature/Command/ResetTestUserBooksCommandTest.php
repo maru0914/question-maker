@@ -1,13 +1,13 @@
 <?php
 
-use App\Console\Commands\ResetTestUserBooks;
+use App\Console\Commands\ResetTestUserBooksCommand;
 use App\Models\Book;
 use App\Models\Question;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 
 beforeEach(function () {
-    $this->testUser = User::factory(['id' => ResetTestUserBooks::TEST_USER_ID])->create();
+    $this->testUser = User::factory(['id' => ResetTestUserBooksCommand::TEST_USER_ID])->create();
 });
 
 it('テストユーザーに紐付く問題集を削除できる', function () {

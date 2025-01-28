@@ -51,3 +51,5 @@ test('email is not verified with invalid hash', function () {
 
     expect($user->fresh()->hasVerifiedEmail())->toBeFalse();
 });
+
+test('email verification notification can be sent', function () {})->todo()->issue('54');
