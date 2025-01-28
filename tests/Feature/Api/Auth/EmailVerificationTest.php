@@ -33,7 +33,7 @@ test('email can be verified', function () {
 
     Event::assertDispatched(Verified::class);
     expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
-    $response->assertRedirect(RouteServiceProvider::HOME . '?verified=1');
+    $response->assertRedirect(RouteServiceProvider::HOME.'?verified=1');
 });
 
 test('email is not verified with invalid hash', function () {
@@ -52,6 +52,4 @@ test('email is not verified with invalid hash', function () {
     expect($user->fresh()->hasVerifiedEmail())->toBeFalse();
 });
 
-test('email verification notification can be sent', function () {
-
-})->todo()->issue('54');
+test('email verification notification can be sent', function () {})->todo()->issue('54');
