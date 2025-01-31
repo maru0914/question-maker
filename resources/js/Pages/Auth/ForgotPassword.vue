@@ -1,10 +1,10 @@
 <script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import {Head, useForm} from '@inertiajs/vue3';
+import GuestLayout from '@/Layouts/GuestLayout.vue';
+import { Head, useForm } from '@inertiajs/vue3';
 
 defineProps({
     status: {
@@ -23,19 +23,20 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="パスワードリセット"/>
+        <Head title="パスワードリセット" />
 
         <div class="mb-4 text-sm text-gray-600">
-            パスワードをお忘れですか？ ご登録時のメールアドレスを入力頂ければ、パスワードリセットのためのリンクをメールで送信いたします
+            パスワードをお忘れですか？
+            ご登録時のメールアドレスを入力頂ければ、パスワードリセットのためのリンクをメールで送信いたします
         </div>
 
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
+        <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
             {{ status }}
         </div>
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="email" value="Email"/>
+                <InputLabel for="email" value="Email" />
 
                 <TextInput
                     id="email"
@@ -47,11 +48,14 @@ const submit = () => {
                     autocomplete="username"
                 />
 
-                <InputError class="mt-2" :message="form.errors.email"/>
+                <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+            <div class="mt-4 flex items-center justify-end">
+                <PrimaryButton
+                    :class="{ 'opacity-25': form.processing }"
+                    :disabled="form.processing"
+                >
                     パスワードリセットメールを送信
                 </PrimaryButton>
             </div>

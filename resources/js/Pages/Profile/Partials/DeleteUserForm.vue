@@ -5,8 +5,8 @@ import InputLabel from '@/Components/InputLabel.vue';
 import Modal from '@/Components/Modal.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import {useForm} from '@inertiajs/vue3';
-import {nextTick, ref} from 'vue';
+import { useForm } from '@inertiajs/vue3';
+import { nextTick, ref } from 'vue';
 
 const confirmingUserDeletion = ref(false);
 const passwordInput = ref(null);
@@ -47,7 +47,9 @@ const closeModal = () => {
             </p>
         </header>
 
-        <DangerButton @click="confirmUserDeletion">アカウントを削除</DangerButton>
+        <DangerButton @click="confirmUserDeletion"
+            >アカウントを削除</DangerButton
+        >
 
         <Modal :show="confirmingUserDeletion" @close="closeModal">
             <div class="p-6">
@@ -60,7 +62,11 @@ const closeModal = () => {
                 </p>
 
                 <div class="mt-6">
-                    <InputLabel for="password" value="Password" class="sr-only"/>
+                    <InputLabel
+                        for="password"
+                        value="Password"
+                        class="sr-only"
+                    />
 
                     <TextInput
                         id="password"
@@ -72,11 +78,13 @@ const closeModal = () => {
                         @keyup.enter="deleteUser"
                     />
 
-                    <InputError :message="form.errors.password" class="mt-2"/>
+                    <InputError :message="form.errors.password" class="mt-2" />
                 </div>
 
                 <div class="mt-6 flex justify-end">
-                    <SecondaryButton @click="closeModal"> キャンセル</SecondaryButton>
+                    <SecondaryButton @click="closeModal">
+                        キャンセル</SecondaryButton
+                    >
 
                     <DangerButton
                         class="ms-3"
