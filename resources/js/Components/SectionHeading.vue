@@ -1,8 +1,8 @@
 <template>
     <div class="inline-flex items-center gap-x-2">
-        <span class="w-2 h-2 bg-gray-600 inline-block"></span>
-        <h3 class="font-medium text-lg">
-            <slot/>
+        <span class="inline-block h-2 w-2 bg-gray-600"></span>
+        <h3 class="text-lg font-medium">
+            <slot />
         </h3>
     </div>
 </template>

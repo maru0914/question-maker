@@ -1,20 +1,19 @@
 <script setup>
+import CancelButton from '@/Components/CancelButton.vue';
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextArea from '@/Components/TextArea.vue';
+import TextInput from '@/Components/TextInput.vue';
+import { useForm } from '@inertiajs/vue3';
 
-import CancelButton from "@/Components/CancelButton.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import InputLabel from "@/Components/InputLabel.vue";
-import TextArea from "@/Components/TextArea.vue";
-import InputError from "@/Components/InputError.vue";
-import {useForm} from "@inertiajs/vue3";
-import TextInput from "@/Components/TextInput.vue";
-
-const emit = defineEmits(['cancel', 'updated'])
+const emit = defineEmits(['cancel', 'updated']);
 
 const props = defineProps({
     question: {
         type: Object,
-        required: true
-    }
+        required: true,
+    },
 });
 
 const form = useForm({
@@ -25,40 +24,47 @@ const form = useForm({
 const updateQuestion = () => {
     form.patch(route('questions.update', props.question.id), {
         onSuccess: () => {
-            emit('updated')
-        }
-    })
-}
-
+            emit('updated');
+        },
+    });
+};
 </script>
 
 <template>
     <form @submit.prevent="updateQuestion">
         <section>
             <div>
-                <InputLabel class="font-bold text-xl" for="body" value="問題文"/>
+                <InputLabel
+                    class="text-xl font-bold"
+                    for="body"
+                    value="問題文"
+                />
                 <TextInput
                     id="body"
                     type="text"
-                    class="block mt-3 w-full"
+                    class="mt-3 block w-full"
                     v-model="form.body"
                     required
                     autofocus
                 />
-                <InputError class="mt-2" :message="form.errors.body"/>
+                <InputError class="mt-2" :message="form.errors.body" />
             </div>
 
             <div class="mt-4">
-                <InputLabel class="font-bold text-xl" for="answer" value="答え"/>
+                <InputLabel
+                    class="text-xl font-bold"
+                    for="answer"
+                    value="答え"
+                />
                 <TextArea
                     id="answer"
                     type="text"
-                    class="block mt-3 w-full"
+                    class="mt-3 block w-full"
                     rows="4"
                     v-model="form.answer"
                     required
                 />
-                <InputError class="mt-2" :message="form.errors.answer"/>
+                <InputError class="mt-2" :message="form.errors.answer" />
             </div>
         </section>
 
@@ -67,6 +73,4 @@ const updateQuestion = () => {
             <PrimaryButton>更新</PrimaryButton>
         </div>
     </form>
-
 </template>
-

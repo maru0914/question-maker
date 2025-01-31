@@ -1,11 +1,6 @@
-import {format, parseISO} from "date-fns";
+import { format, parseISO } from 'date-fns';
 
-const formatDatetime = (datetime) => format(
-    parseISO(datetime),
-    'yyyy-MM-dd HH:mm'
-)
+const formatDatetime = (datetime) =>
+    format(parseISO(datetime), 'yyyy-MM-dd HH:mm');
 
-
-export {
-    formatDatetime
-};
+export { formatDatetime };

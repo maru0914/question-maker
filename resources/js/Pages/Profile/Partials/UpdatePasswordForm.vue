@@ -56,7 +56,10 @@ const updatePassword = () => {
                     autocomplete="current-password"
                 />
 
-                <InputError :message="form.errors.current_password" class="mt-2" />
+                <InputError
+                    :message="form.errors.current_password"
+                    class="mt-2"
+                />
             </div>
 
             <div>
@@ -75,7 +78,10 @@ const updatePassword = () => {
             </div>
 
             <div>
-                <InputLabel for="password_confirmation" value="パスワードを再入力" />
+                <InputLabel
+                    for="password_confirmation"
+                    value="パスワードを再入力"
+                />
 
                 <TextInput
                     id="password_confirmation"
@@ -85,7 +91,10 @@ const updatePassword = () => {
                     autocomplete="new-password"
                 />
 
-                <InputError :message="form.errors.password_confirmation" class="mt-2" />
+                <InputError
+                    :message="form.errors.password_confirmation"
+                    class="mt-2"
+                />
             </div>
 
             <div class="flex items-center gap-4">
@@ -97,7 +106,12 @@ const updatePassword = () => {
                     leave-active-class="transition ease-in-out"
                     leave-to-class="opacity-0"
                 >
-                    <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">保存されました</p>
+                    <p
+                        v-if="form.recentlySuccessful"
+                        class="text-sm text-gray-600"
+                    >
+                        保存されました
+                    </p>
                 </Transition>
             </div>
         </form>

@@ -32,9 +32,15 @@ const form = useForm({
             </p>
         </header>
 
-        <form @submit.prevent="form.patch(route('profile.update'))" class="mt-6 space-y-6">
+        <form
+            @submit.prevent="form.patch(route('profile.update'))"
+            class="mt-6 space-y-6"
+        >
             <div>
-                <InputLabel for="username" value="ユーザー名(他のユーザーに表示される名前)" />
+                <InputLabel
+                    for="username"
+                    value="ユーザー名(他のユーザーに表示される名前)"
+                />
 
                 <TextInput
                     id="username"
@@ -65,13 +71,13 @@ const form = useForm({
             </div>
 
             <div v-if="mustVerifyEmail && user.email_verified_at === null">
-                <p class="text-sm mt-2 text-gray-800">
+                <p class="mt-2 text-sm text-gray-800">
                     メールアドレスが未確認です
                     <Link
                         :href="route('verification.send')"
                         method="post"
                         as="button"
-                        class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     >
                         ここをクリックすると確認用メールを再送します
                     </Link>
@@ -79,7 +85,7 @@ const form = useForm({
 
                 <div
                     v-show="status === 'verification-link-sent'"
-                    class="mt-2 font-medium text-sm text-green-600"
+                    class="mt-2 text-sm font-medium text-green-600"
                 >
                     あなたのメールアドレスに確認用のリンクが送信されました
                 </div>
@@ -94,7 +100,12 @@ const form = useForm({
                     leave-active-class="transition ease-in-out"
                     leave-to-class="opacity-0"
                 >
-                    <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">保存されました</p>
+                    <p
+                        v-if="form.recentlySuccessful"
+                        class="text-sm text-gray-600"
+                    >
+                        保存されました
+                    </p>
                 </Transition>
             </div>
         </form>

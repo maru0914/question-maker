@@ -1,4 +1,4 @@
-import {reactive, readonly} from "vue";
+import { reactive, readonly } from 'vue';
 
 const globalState = reactive({
     show: false,
@@ -39,7 +39,6 @@ export function useConfirm() {
             }
 
             resetModal();
-        }
+        },
     };
 }
-
